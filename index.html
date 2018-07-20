@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ARTIFACT</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/default-favicon.ico" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+    <script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <div ng-controller="AppCtrl" ng-cloak>
+        <md-toolbar class="md-hue-2" hide-gt-sm style="position: fixed; top: 0; z-index: 100;">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft();">
+                    <md-icon md-svg-icon="img/menu.svg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <section layout="row" flex id="main-container">
+
+            <!-- <md-sidenav-container> -->
+            <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style="z-index: 999;">
+                <md-content layout-padding> <!-- ng-controller="LeftCtrl" -->
+                    <!-- 2017-07-20 -->
+                    <md-button class="md-icon-button" aria-label="Settings" ng-click="close();">
+                        <md-icon md-svg-icon="img/close.svg"  style="color: white"></md-icon>
+                    </md-button>
+                    <h1 class="main-title">ARTIFACT</h1>
+                    <h5>NEW YORK</h5>
+                    <div style="padding-top:  100px;">
+                        <md-list-item ng-click="gotoMain();">
+                            <p>Main</p>
+                        </md-list-item>
+                        <md-list-item ng-click="null">
+                            <p>Contact</p>
+                        </md-list-item>
+                        <md-list-item ng-click="null">
+                            <p>About</p>
+                        </md-list-item>
+                        <md-list-item ng-click="toggle()">
+                            <p>Filter</p>
+                        </md-list-item>
+                        <ul ng-show="isOpen" class="menu-toggle-list" ng-class="{'toggle-active': isOpen}">
+                            <li>
+                                <md-button class="md-button" aria-label="Settings" ng-click="clearFilter();">
+                                    Clear Filter
+                                </md-button>
+                            </li>
+                            <li ng-repeat="filter in filters">
+                                <md-checkbox ng-click="selectAllCurCate(filter.id);" ng-checked="checkedItem(filter.id)">
+                                    {{filter.cname}}
+                                </md-checkbox>
+                                <hr>
+                                <div layout="row" layout-wrap ng-show="filter.cname!='Category'" class="sub-cate">
+                                    <md-checkbox flex="33" ng-repeat="sub_cate in filter.sub" ng-click="selectCurItem(sub_cate.id);" ng-checked="checkedItem(sub_cate.id)">
+                                        {{ sub_cate.cname }}
+                                    </md-checkbox>
+                                </div>
+                                <div layout="row" layout-wrap ng-show="filter.cname=='Category'" class="sub-cate">
+                                    <md-checkbox flex="100" ng-repeat="sub_cate in filter.sub" ng-click="selectCurItem(sub_cate.id);" ng-checked="checkedItem(sub_cate.id)">
+                                        {{ sub_cate.cname }}
+                                    </md-checkbox>
+                                </div>
+                            </li>
+                        </ul>
+                        <md-list-item ng-click="null">
+                            <p>Collections</p>
+                        </md-list-item>
+                    </div>
+                </md-content>
+            </md-sidenav>
+            <!-- </md-sidenav-container> -->
+            <md-content flex>
+                <div layout="row" ng-show="!showItem">
+                    <div layout="row" flex layout-wrap class="item-area">
+                        <div ng-repeat="item in displayItem">
+                            <div class="item" ng-click="viewItem(item.id);">
+                                <img src="{{item.image}}" alt="">
+                            </div>
+                            <div class="item_hide display-none" ng-click="viewItem(item.id);">
+                                <img src="{{item.image}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div layout="row" ng-show="showItem">
+                    <div flex="50" class="p-images">
+                        <img src="{{image.trim()}}" alt="" ng-repeat="image in itemImages">
+                    </div>
+                    <div flex="50" class="p-detail" id="p-detail">
+                        <!-- <a href="" ng-click="backToList();" style="float: right;">back to list</a> -->
+                        <h1>{{curProduct.title}}</h1>
+                        <p>
+                            <font ng-show="curProduct.sub['size']"><strong>Measurement:</strong> {{curProduct.sub['size']}},</font>
+                            <font ng-show="curProduct.sub['material'] && curProduct.vintage==1"><strong>Year:</strong> {{curProduct.sub['material']}}</font>
+                            <font ng-show="curProduct.sub['material'] && curProduct.vintage==0"><strong>Material:</strong> {{curProduct.sub['material']}}</font>
+                        </p>
+                        <p ng-repeat="(key, value) in curProduct.sub">
+                            <font ng-show="key!='material' && key!='size'">{{value}}</font>
+                        </p>
+                        <!-- <strong>{{key}}</strong> -->
+                    </div>
+                </div>
+            </md-content>
+        </section>
+
+    </div>
+</body>
+
+</html>
