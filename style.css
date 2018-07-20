@@ -61,6 +61,7 @@ md-sidenav ul li:hover {
 md-sidenav>md-content .md-icon-button {
     position: absolute;
     right: 0px;
+    display: none;
 }
 
 .main-title {
@@ -108,7 +109,6 @@ md-checkbox.md-checked .md-icon:after {
     border-color: black;
 }
 
-
 /* .md-button-toggle .md-toggle-icon.toggled {
     transform: rotateZ(180deg);
     -webkit-transform: rotateZ(180deg);
@@ -135,8 +135,6 @@ md-checkbox.md-checked .md-icon:after {
     height: 160px; */
     cursor: pointer;
 }
-
-
 
 .zoom {
     transform: scale(1.2);
@@ -304,6 +302,10 @@ md-sidenav {
     .md-sidenav-left,
     md-sidenav {
         position: fixed;
+    }
+
+    md-sidenav>md-content .md-icon-button {
+        display: block;
     }
 }
 
