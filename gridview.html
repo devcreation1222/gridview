@@ -1,0 +1,30 @@
+<div layout="row" ng-show="!showItem">
+    <div layout="row" flex layout-wrap class="item-area">
+        <div ng-repeat="item in displayItem">
+            <div class="item" ng-click="viewItem(item.id);">
+                <img src="{{item.image}}" alt="">
+            </div>
+            <div class="item_hide display-none" ng-click="viewItem(item.id);">
+                <img src="{{item.image}}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<div layout="row" ng-show="showItem">
+    <div flex="50" class="p-images">
+        <img src="{{image.trim()}}" alt="" ng-repeat="image in itemImages">
+    </div>
+    <div flex="50" class="p-detail" id="p-detail">
+        <!-- <a href="" ng-click="backToList();" style="float: right;">back to list</a> -->
+        <h1>{{curProduct.title}}</h1>
+        <p>
+            <font ng-show="curProduct.sub['size']"><strong>Measurement:</strong> {{curProduct.sub['size']}},</font>
+            <font ng-show="curProduct.sub['material'] && curProduct.vintage==1"><strong>Year:</strong> {{curProduct.sub['material']}}</font>
+            <font ng-show="curProduct.sub['material'] && curProduct.vintage==0"><strong>Material:</strong> {{curProduct.sub['material']}}</font>
+        </p>
+        <p ng-repeat="(key, value) in curProduct.sub">
+            <font ng-show="key!='material' && key!='size'">{{value}}</font>
+        </p>
+        <!-- <strong>{{key}}</strong> -->
+    </div>
+</div>

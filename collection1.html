@@ -1,0 +1,78 @@
+<div id="container">
+    <div class="row">
+        <div class="col-sm-8">
+
+            <flex-slider slider-id="slider" flex-slide="image in prod1.imagePaths track by $index" animation="fade" animation-loop="false" sync="#carousel" slideshow="false" control-nav="false" init-delay="100">
+
+                <li>
+                    <img ng-src="{{image.custom}}">
+                </li>
+
+            </flex-slider>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+
+            <flex-slider slider-id="carousel" flex-slide="image in prod1.imagePaths track by $index" animation="slide" animation-loop="false" item-width="120" item-margin="5" as-nav-for="#slider" slideshow="false" control-nav="false">
+                <li>
+                    <img ng-src="{{image.thumbnail}}">
+                </li>
+            </flex-slider>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8" style="margin-top: 60px; text-align: center">
+            <p>
+                It's hard to underestimate the influence of Raf Simon's Autumn / Winter 2001 "Riot, Riot, Riot" collection on contemporary fashion. This show marked Simon's official transition to primarily oversized garments and punkier DIY construction. Inspired by
+                Eastern European youths layering oversized garments to stay warm in Viennese flea markets during harsh winters, Simons repurposed vintage oversized Fostex MA-1 bomber jackets, canvas military surplus belts, and Desert Storm-era shemaghs
+                and sewed on patches with various cultural references identifiable by any alt-youth of the era. Additionally, garments were intentionally distressed to create holes and imperfections reminiscent of how punks dressed in the 1970's. Most
+                importantly, however, this collection is credited with introducing exaggerated baggy silhouettes to the world of men's high fashion. Looking back now, some twenty years ahead in the future, its easy to decree that this collection changed
+                not only what kinds of garments are being worn today, but also how they are being worn.
+            </p>
+        </div>
+    </div>
+</div>
+<style>
+    #container {
+        width: 1100px;
+        margin-top: 60px;
+        margin-left: 60px;
+    }
+    
+    #carousel img {
+        display: block;
+        opacity: .5;
+        cursor: pointer;
+    }
+    
+    #carousel .flex-active-slide img {
+        opacity: 1;
+        cursor: default;
+    }
+    
+    #slider {
+        margin: 0 0 20px;
+        background: rgba(175, 175, 175, .1);
+        border: none;
+        box-shadow: 0 0px 0px;
+    }
+    
+    #carousel {
+        border: none;
+        box-shadow: 0 0px 0px;
+    }
+    
+    #slider .slides img {
+        height: 447px;
+        width: auto;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    #carousel .slides img {
+        width: auto;
+        height: 80px;
+    }
+</style>

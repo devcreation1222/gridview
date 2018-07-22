@@ -109,6 +109,7 @@ md-checkbox.md-checked .md-icon:after {
     border-color: black;
 }
 
+
 /* .md-button-toggle .md-toggle-icon.toggled {
     transform: rotateZ(180deg);
     -webkit-transform: rotateZ(180deg);
@@ -303,7 +304,6 @@ md-sidenav {
     md-sidenav {
         position: fixed;
     }
-
     md-sidenav>md-content .md-icon-button {
         display: block;
     }

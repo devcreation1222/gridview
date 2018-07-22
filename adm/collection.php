@@ -6,15 +6,15 @@ $action = isset($_POST['action']) ? $_POST['action'] : "";
 if($action == 'del') {
     $pid = $_POST['p_id'];
     if(trim($pid)) {
-        mysqli_query($link, "DELETE FROM `product` WHERE id='".$pid."'");
+        mysqli_query($link, "DELETE FROM `collection` WHERE id='".$pid."'");
     }
 }
 
-$p_sql = "select * from product";
+$p_sql = "SELECT * FROM collection";
 $p_result = mysqli_query($link, $p_sql);
-$products = [];
+$collections = [];
 while($row = mysqli_fetch_array($p_result)) {
-    $products[] = $row;
+    $collections[] = $row;
 }
 
 
@@ -67,12 +67,12 @@ while($row = mysqli_fetch_array($p_result)) {
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Product List</h3>
+                    <h3 class="text-primary">Collection List</h3>
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Product List</li>
+                        <li class="breadcrumb-item active">Collection List</li>
                     </ol>
                 </div>
             </div>
@@ -84,51 +84,37 @@ while($row = mysqli_fetch_array($p_result)) {
                     <div class="col-12">
                         <div class="card" style="min-height: 70vh;">
                             <div class="card-body">
-                                <h4 class="card-title">Product Export</h4>
-                                <h6 class="card-subtitle">Export products to Copy, CSV, Excel, PDF & Print</h6>
                                 <div class="table-responsive m-t-40">
                                     <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th></th>
-                                                <th></th>
-                                                <th>Title</th>
-                                                <th>Category</th>
+                                                <th>Collection Number</th>
+                                                <th>Image</th>
+                                                <th>Description</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th></th>
-                                                <th></th>
-                                                <th>Title</th>
-                                                <th>Category</th>
+                                                <th>Collection Number</th>
+                                                <th>Image</th>
+                                                <th>Description</th>
                                                 <th></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                         <?php
-                                            for ($i = 0; $i < sizeof($products); $i++) {
-                                                $img_list = explode(',', $products[$i]['image']);
+                                            for ($i = 0; $i < sizeof($collections); $i++) {
+                                                $img_list = explode(',', $collections[$i]['col_image']);
                                                 $main_img = trim($img_list[0]);
-                                                $c_list = explode(',', $products[$i]['category']);
-                                                $category = "";
-                                                for ($j = 0; $j < sizeof($c_list); $j++) { 
-                                                    $c_sql = "select * from filters where id='".$c_list[$j]."'";
-                                                    $c_sql_result = mysqli_query($link, $c_sql);
-                                                    while ($row = mysqli_fetch_array($c_sql_result)) {
-                                                        $category .= urldecode($row['cname']).", ";
-                                                    }
-                                                }
                                         ?>
                                         <tr>
-                                            <td style="width: 10%;"><?php echo $i+1;?></td>
+                                            <td style="width: 10%;"><?php echo $collections[$i]['col_num'];?></td>
                                             <td style="width: 10%;"><img src="<?php echo urldecode($main_img);?>" alt="" style="width: 100px;"></td>
-                                            <td style="width: 10%;"><?php echo urldecode($products[$i]['title']);?></td>
-                                            <td style="width: 10%;"><?php echo urldecode($category);?></td>
+                                            <td style="width: 10%;"><?php echo urldecode($collections[$i]['col_description']);?></td>
                                             <td style="width: 10%;">
-                                                <button type="button" class="btn btn-primary btn-flat btn-addon m-l-5" onclick="location.href='./product_edit.php?id=<?php echo $products[$i]['id'];?>'"><i class="fa fa-pencil-square-o"></i></button>
-                                                <button type="button" class="btn btn-danger btn-flat btn-addon m-l-5" onclick="removeProduct('<?php echo $products[$i]['id'];?>');"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                <button type="button" class="btn btn-primary btn-flat btn-addon m-l-5" onclick="location.href='./collection_edit.php?id=<?php echo $collections[$i]['id'];?>'"><i class="fa fa-pencil-square-o"></i></button>
+                                                <button type="button" class="btn btn-danger btn-flat btn-addon m-l-5" onclick="removeCollection('<?php echo $collections[$i]['id'];?>');"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                             </td>
                                         </tr>
                                         <?php        
@@ -147,7 +133,7 @@ while($row = mysqli_fetch_array($p_result)) {
         </div>
         <!-- End Wrapper -->
     </div>
-    <form action="./index.php" method="post" id="myfrm">
+    <form action="./collection.php" method="post" id="myfrm">
         <input type="hidden" name="p_id" id="p_id" value="">
         <input type="hidden" name="action" id="action" value="">
     </form>
@@ -178,10 +164,9 @@ while($row = mysqli_fetch_array($p_result)) {
     <script src="js/lib/datatables/datatables-init.js"></script>
 
     <script>
-        function removeProduct(param) {
+        function removeCollection(param) {
             var resp = confirm("Do you want to delete this category?");
             if(resp == true) {
-                console.log(param);
                 $("#p_id").val(param);
                 $("#action").val('del');
                 $('#myfrm').submit();

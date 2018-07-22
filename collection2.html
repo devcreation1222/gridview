@@ -1,0 +1,74 @@
+<div id="container">
+    <div class="row">
+        <div class="col-sm-8">
+
+            <flex-slider slider-id="slider" flex-slide="image in prod2.imagePaths track by $index" animation="fade" animation-loop="false" sync="#carousel" slideshow="false" control-nav="false" init-delay="100">
+
+                <li>
+                    <img ng-src="{{image.custom}}">
+                </li>
+
+            </flex-slider>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+
+            <flex-slider slider-id="carousel" flex-slide="image in prod2.imagePaths track by $index" animation="slide" animation-loop="false" item-width="120" item-margin="5" as-nav-for="#slider" slideshow="false" control-nav="false">
+                <li>
+                    <img ng-src="{{image.thumbnail}}">
+                </li>
+            </flex-slider>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8" style="margin-top: 60px; text-align: center">
+            <p>
+                This is the area where we can write a blurb. Something of medium length (1-2 paragraphs). Talking about the pieces we highlighted and the inspiration for the fits and the type of mood/aesthetic the images are looking to capture.
+            </p>
+        </div>
+    </div>
+</div>
+<style>
+    #container {
+        width: 1100px;
+        margin-top: 60px;
+        margin-left: 60px;
+    }
+    
+    #carousel img {
+        display: block;
+        opacity: .5;
+        cursor: pointer;
+    }
+    
+    #carousel .flex-active-slide img {
+        opacity: 1;
+        cursor: default;
+    }
+    
+    #slider {
+        margin: 0 0 20px;
+        background: rgba(175, 175, 175, .1);
+        border: none;
+        box-shadow: 0 0px 0px;
+    }
+    
+    #carousel {
+        border: none;
+        box-shadow: 0 0px 0px;
+    }
+    
+    #slider .slides img {
+        height: 447px;
+        width: auto;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    #carousel .slides img {
+        width: auto;
+        height: 80px;
+    }
+</style>

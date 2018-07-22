@@ -87,55 +87,15 @@ while($m_row = mysqli_fetch_array($m_sql_result)) {
 </head>
 
 <body class="fix-header fix-sidebar">
-    <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
-			<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-    </div>
+    <!-- Preloader - style you can find in spinners.css -->
+    <?php include 'preloader.php'; ?>
     <!-- Main wrapper  -->
     <div id="main-wrapper">
         <!-- header header  -->
-        <div class="header">
-            <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                <div class="navbar-collapse">
-                    <!-- toggle and nav items -->
-                    <ul class="navbar-nav mr-auto mt-md-0">
-                        <!-- This is  -->
-                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
-                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+        <?php include 'header.php'; ?>
         <!-- End header header -->
         <!-- Left Sidebar  -->
-        <div class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="nav-devider"></li>
-                        <li class="nav-label">Home</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="hide-menu">Product</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="product_new.php">New</a></li>
-                                <li><a href="index.php">List</a></li>
-                            </ul>
-                        </li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-share-alt" aria-hidden="true"></i><span class="hide-menu">Category</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="category_new.php">New</a></li>
-                                <li><a href="category.php">List</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="setting.php"><i class="fa fa-cog" aria-hidden="true"></i><span class="hide-menu">Setting</span></a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </div>
+        <?php include 'left_sidebar.php'; ?>
         <!-- End Left Sidebar  -->
         <!-- Page wrapper  -->
         <div class="page-wrapper">
