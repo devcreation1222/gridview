@@ -9,22 +9,19 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ARTIFACT</title>
-    <link rel="shortcut icon" type="image/x-icon" href="img/default-favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/default-favicon.ico" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" />
     <link rel="stylesheet" href="style.css">
 
-
     <script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-
     <link rel="stylesheet" href="//cdn.jsdelivr.net/flexslider/2.2.2/flexslider.css">
-    <script src="//cdn.jsdelivr.net/flexslider/2.2.2/jquery.flexslider-min.js"></script>
-    <script src="//cdn.jsdelivr.net/flexslider/2.2.2/jquery.flexslider.js"></script>
+    <!-- <script src="//cdn.jsdelivr.net/flexslider/2.2.2/jquery.flexslider-min.js"></script> -->
+    <script src="assets/js/jquery.flexslider.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
@@ -33,7 +30,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
     <script src="//unpkg.com/@uirouter/angularjs@1.0.7/release/angular-ui-router.min.js"></script>
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
-    <script src="angular-flexslider.js"></script>
+    <script src="assets/js/angular-flexslider.js"></script>
     <!-- <link rel="stylesheet" href="ngGallery.css"> -->
     <!-- 
     <link rel="stylesheet" href="flexslider.css" />
@@ -51,7 +48,7 @@
         <md-toolbar class="md-hue-2" hide-gt-sm style="position: fixed; top: 0; z-index: 100;">
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft();">
-                    <md-icon md-svg-icon="img/menu.svg"></md-icon>
+                    <md-icon md-svg-icon="assets/img/menu.svg"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -63,7 +60,7 @@
                     <!-- ng-controller="LeftCtrl" -->
                     <!-- 2017-07-20 -->
                     <md-button class="md-icon-button" aria-label="Settings" ng-click="close();">
-                        <md-icon md-svg-icon="img/close.svg" style="color: white"></md-icon>
+                        <md-icon md-svg-icon="assets/img/close.svg" style="color: white"></md-icon>
                     </md-button>
                     <h1 class="main-title">ARTIFACT</h1>
                     <h5>NEW YORK</h5>
@@ -72,10 +69,10 @@
                             <!-- <p>Main</p> -->
                             <p>Main</p>
                         </md-list-item>
-                        <md-list-item ng-click="null">
+                        <md-list-item ui-sref="contact">
                             <p>Contact</p>
                         </md-list-item>
-                        <md-list-item ng-click="null">
+                        <md-list-item ui-sref="about">
                             <p>About</p>
                         </md-list-item>
                         <md-list-item ng-click="toggle()">
@@ -108,17 +105,8 @@
                             <p>Collections</p>
                         </md-list-item>
                         <ul ng-show="isColOpen" class="menu-toggle-list" ng-class="{'toggle-active': isColOpen}" style="padding-left: 30px;">
-                            <li ui-sref="collection1">
-                                <p>1</p>
-                            </li>
-                            <li ui-sref="collection2">
-                                <p>2</p>
-                            </li>
-                            <li ui-sref="collection3">
-                                <p>3</p>
-                            </li>
-                            <li ui-sref="collection4">
-                                <p>4</p>
+                            <li ng-repeat="col_num in col_nums" ui-sref="collection({colNum: col_num.col_num})" ng-click="collectionView(col_num.col_num)">
+                                <p>{{col_num.col_num}}</p>
                             </li>
                         </ul>
                     </div>

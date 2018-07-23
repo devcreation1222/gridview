@@ -1,0 +1,111 @@
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-1 col-sm-1">
+        </div>
+        <div class="col-md-5 col-sm-5">
+            <div class="block block-top">
+                <div class="block-top-content">
+                    <h1>Contact Us</h1>
+                    <p>&nbsp;</p>
+                    <p>hugh@thehighnotenyc.com</p>
+                    <p>max@thehighnotenyc.com</p>
+                    <p>dominik@thehighnotenyc.com</p>
+                </div>
+            </div>
+            <div class="block block-space">
+                <div class="block-space-content"></div>
+            </div>
+            <div class="block block-notify">
+                <h3>PLEASE FILL OUT THE FORM BELOW IF YOU ARE INTERESTED IN RENTING ANY OF THE ARCHIVE. SOMEONE WILL REPLY TO YOU WITHIN 24 HOURS.</h3>
+            </div>
+            <div class="block block-form">
+                <form name="contactForm" ng-submit="submitForm(contactForm.$valid, contactForm)" novalidate>
+                    <div class="form-group" ng-class="{'has-error': (contactForm.firstName.$invalid && contactForm.lastName.$valid && submitted) || (contactForm.lastName.$invalid && contactForm.firstName.$valid && submitted) || (contactForm.firstName.$invalid && contactForm.lastName.$invalid && submitted)}">
+                        <p ng-show="contactForm.firstName.$invalid && contactForm.lastName.$valid && submitted" class "help-block">Name is missing required subfields: First</p>
+                        <p ng-show="contactForm.lastName.$invalid && contactForm.firstName.$valid && submitted" class="help-block">Name is missing required subfields: Last</p>
+                        <p ng-show="contactForm.firstName.$invalid && contactForm.lastName.$invalid && submitted" class="help-block">Name is required.</p>
+                        <label>Name *</label>
+                        <input type="text" name="firstName" class="form-control" ng-model="firstName" required />
+                        <label for="firstName">First Name</label>
+                        <input type="text" name="lastName" class="form-control" ng-model="lastName" required />
+                        <label for="lastName">Last Name</label>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': contactForm.email.$invalid && submitted}">
+                        <p ng-show="contactForm.email.$invalid && submitted" class="help-block">Email is required.</p>
+                        <label>Email *</label>
+                        <input type="email" name="email" class="form-control" ng-model="email" required />
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': contactForm.subject.$invalid && submitted}">
+                        <p ng-show="contactForm.subject.$invalid && submitted" class="help-block">Subject is required.</p>
+                        <label>Subject *</label>
+                        <input type="text" name="subject" class="form-control" ng-model="subject" required />
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': contactForm.message.$invalid && submitted}">
+                        <p ng-show="contactForm.message.$invalid && submitted" class="help-block">Message is required.</p>
+                        <label>Message *</label>
+                        <textarea name="message" class="form-control" ng-model="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6"></div>
+    </div>
+</div>
+
+<style>
+    .wrapper {
+        padding: 65px;
+    }
+    
+    .wrapper .block {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+    
+    .wrapper .block-top {
+        padding-top: 0px;
+        padding-bottom: 17px;
+    }
+    
+    .block-top-content h1,
+    .block-notify h3 {
+        font-family: 'Proxima Nova';
+        font-weight: 600;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        line-height: 1.25em;
+        color: #242628;
+    }
+    
+    .wrapper h1 {
+        font-size: 1.3em;
+    }
+    
+    .wrapper h3 {
+        font-size: 0.8em;
+    }
+    
+    .block-top-content p {
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-family: 'PT Mono';
+        font-weight: 400;
+        font-size: 13px;
+        letter-spacing: -.03em;
+        line-height: 1.75em;
+        color: rgba(17, 17, 17, .6);
+    }
+    
+    .wrapper .block-space,
+    .wrapper .block-notify,
+    .wrapper .block-form {
+        padding-top: 17px;
+        padding-bottom: 17px;
+    }
+    
+    .block-space .block-space-content {
+        padding-bottom: 5%;
+    }
+</style>

@@ -10,7 +10,7 @@ if(!$pid) {
 $action = isset($_POST['action']) ? $_POST['action'] : '';
 if($action == 'edit') {
     $col_num = urlencode(trim($_POST['col_num']));
-    $col_description = urlencode(trim($_POST['col_description']));
+    $col_description = urlencode($_POST['col_description']);
     
     $upload_dir = "upload/";
     $upload_new_files = "";
@@ -26,7 +26,7 @@ if($action == 'edit') {
                 $tmp = pathinfo($_FILES['col_image']['name'][$i]);
                 $success = move_uploaded_file($_FILES['col_image']['tmp_name'][$i], $upload_dir.$i.$time.".".$tmp['extension']);
                 if($success) {
-                    $upload_new_files .= "http://192.168.1.16:8888/2_team/1_pae/3_gridview/angular/adm/".$upload_dir.$i.$time.".".$tmp['extension'].",";
+                    $upload_new_files .= "http://192.168.1.16:8888/adm/".$upload_dir.$i.$time.".".$tmp['extension'].",";
                     $num++;
                 }
             }
@@ -114,7 +114,7 @@ while($row = mysqli_fetch_array($p_result)) {
                                             <label class="col-lg-4 col-form-label" for="col_description">Description <span class="text-danger">*</span></label>
                                             <div class="col-lg-6">
                                                 <textarea class="form-control" id="col_description" name="col_description" placeholder="Enter Description..." style="height: 300px;">
-                                                    <?php echo urldecode(trim($cur_collection['description']));?>
+                                                    <?php echo urldecode($cur_collection['col_description']);?>
                                                 </textarea>
                                             </div>
                                         </div>

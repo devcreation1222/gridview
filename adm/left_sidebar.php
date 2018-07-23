@@ -12,7 +12,7 @@
                         <li><a href="index.php">List</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-share-alt" aria-hidden="true"></i><span class="hide-menu">Category</span></a>
+                <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-list-alt" aria-hidden="true"></i><span class="hide-menu">Category</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="category_new.php">New</a></li>
                         <li><a href="category.php">List</a></li>

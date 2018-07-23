@@ -1,6 +1,6 @@
 angular
-    .module('myApp', ['ngMaterial', 'ui.router', 'angular-flexslider'])
-    .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log, $http) {
+    .module('myApp', ['ngMaterial', 'ngMessages', 'ui.router', 'angular-flexslider'])
+    .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $stateParams) {
         $scope.toggleLeft = buildDelayedToggler('left');
         $scope.filterLeft = buildToggler('filter-left');
         $scope.isOpen = false;
@@ -258,7 +258,7 @@ angular
 
         $timeout(function() {
             this.rowCollection = [];
-            var api_url = "lib/product.php";
+            var api_url = "api/product.php";
             var fd = new FormData();
             fd.append('action', 'get');
             var _this = this;
@@ -288,7 +288,7 @@ angular
         $scope.viewItem = function(id) {
             console.log(id);
             $scope.showItem = true;
-            var api_url = "lib/getProductDetail.php";
+            var api_url = "api/getProductDetail.php";
             var fd = new FormData();
             fd.append('id', id);
             var _this = this;
@@ -362,6 +362,7 @@ angular
                             }
                         }
                     }
+
                 });
 
                 $(".item_hide").live('mouseout', function(event) {
@@ -373,146 +374,127 @@ angular
                     hide_elem.removeAttribute("style");
                 });
 
-                $(".collection-1").load(function() {
-                    alert("fff");
-                    $('#carousel').flexslider({
-                        animation: "slide",
-                        controlNav: false,
-                        animationLoop: false,
-                        slideshow: false,
-                        itemWidth: 64,
-                        itemMargin: 0,
-                        asNavFor: '#slider'
-                    });
-
-                    $('#slider').flexslider({
-                        animation: "slide",
-                        controlNav: false,
-                        animationLoop: false,
-                        slideshow: false,
-                        sync: "#carousel"
-                    });
+                $(window).scroll(function() {
+                    $(".item_hide").each(function() {
+                        if (this.classList.value == 'item_hide zoom') {
+                            this.classList.remove('zoom');
+                            this.classList.remove('display-none');
+                            this.classList.add('display-none');
+                        }
+                    })
                 });
 
-                // $('#carousel').flexslider({
-                //     animation: "slide",
-                //     controlNav: false,
-                //     animationLoop: false,
-                //     slideshow: false,
-                //     itemWidth: 64,
-                //     itemMargin: 0,
-                //     asNavFor: '#slider'
-                // });
-
-                // $('#slider').flexslider({
-                //     animation: "slide",
-                //     controlNav: false,
-                //     animationLoop: false,
-                //     slideshow: false,
-                //     sync: "#carousel"
-                // });
             });
+
         }
 
         $scope.initJQuery();
 
-        // collection1
-        $scope.prod1 = { imagePaths: [] };
-        $scope.prod1.imagePaths = [
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aa1d373e4966b4fddb560c3/1520554872453/shoot1_raf_-1.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aa1d373e4966b4fddb560c3/1520554872453/shoot1_raf_-1.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aa1d341f9619aab0142a19b/1520554822276/shoot1_raf_-1-2.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aa1d341f9619aab0142a19b/1520554822276/shoot1_raf_-1-2.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5ac2f4850e2e722b0649fba1/1522726025961/shoot1_raf_-17.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5ac2f4850e2e722b0649fba1/1522726025961/shoot1_raf_-17.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aa1d35853450ad3c9649ef9/1520554849998/shoot1_raf_-7.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aa1d35853450ad3c9649ef9/1520554849998/shoot1_raf_-7.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa93d88251b4d1607c5a6/1525655897577/RAF01-14.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa93d88251b4d1607c5a6/1525655897577/RAF01-14.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa93d2b6a281d80cfe937/1525655893868/RAF01-30.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa93d2b6a281d80cfe937/1525655893868/RAF01-30.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa95103ce6458686cf6b6/1525655917410/RAF01-32.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa95103ce6458686cf6b6/1525655917410/RAF01-32.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa953f950b7632494b7fc/1525655915440/RAF01-35.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa953f950b7632494b7fc/1525655915440/RAF01-35.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa96570a6ad6e397d01dd/1525655925097/RAF01-3.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aa1d31cf9619aab01429bcf/5aefa96570a6ad6e397d01dd/1525655925097/RAF01-3.jpg' }
-        ];
+        // collections view
+        $scope.col_nums = [];
 
-        // collection2
-        $scope.prod2 = { imagePaths: [] };
-        $scope.prod2.imagePaths = [
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f013352f533cbdc377a8/1522724890827/09130015.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f013352f533cbdc377a8/1522724890827/09130015.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f018562fa73cd88e9067/1522724892954/09130017.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f018562fa73cd88e9067/1522724892954/09130017.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f0142b6a284b3fd36590/1522726487161/09130016.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f0142b6a284b3fd36590/1522726487161/09130016.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f3422b6a284b3fd3e098/1522725704992/IMG_8279.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f3422b6a284b3fd3e098/1522725704992/IMG_8279.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f0101ae6cf15a4b819f3/1522724895932/09120030.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f0101ae6cf15a4b819f3/1522724895932/09120030.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f01003ce6421fdb78302/1522724887215/09120038.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f01003ce6421fdb78302/1522724887215/09120038.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f342aa4a99295f396bcb/1522726470437/IMG_8268.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f342aa4a99295f396bcb/1522726470437/IMG_8268.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f33f0e2e722b0649ca9f/1522725701848/IMG_8239.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f33f0e2e722b0649ca9f/1522725701848/IMG_8239.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f33ff950b78f601f2788/1522725703241/IMG_8215.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f010aa4a99295f38edf5/5ac2f33ff950b78f601f2788/1522725703241/IMG_8215.JPG' }
-        ];
-        // collection3
-        $scope.prod3 = { imagePaths: [] };
-        $scope.prod3.imagePaths = [
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f103ce6421fdb7caa8/1525660507531/09120011.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f103ce6421fdb7caa8/1525660507531/09120011.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f40e2e722b06499894/1522725376750/09120012.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f40e2e722b06499894/1522725376750/09120012.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f503ce6421fdb7cb37/1522725372442/09120013.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f503ce6421fdb7cb37/1522725372442/09120013.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5aefa9142b6a281d80cfe2ae/1525660514632/41520016.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5aefa9142b6a281d80cfe2ae/1525660514632/41520016.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f9f950b78f601ef48b/1522725378954/09120020.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f9f950b78f601ef48b/1522725378954/09120020.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f1352f533cbdc3bd66/1525660510104/09120001.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1f1352f533cbdc3bd66/1525660510104/09120001.JPG' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1fa70a6ad24dfa47059/1522725379057/09120023.JPG', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5ac2f1f1575d1f44459fca75/5ac2f1fa70a6ad24dfa47059/1522725379057/09120023.JPG' }
-        ];
+        $timeout(function() {
+            var api_url = "api/getCollectionNum.php";
 
-        // collection4
-        $scope.prod4 = { imagePaths: [] };
-        $scope.prod4.imagePaths = [
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb88f70a6ad6e397f4b15/1525659806208/RAF01-11.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb88f70a6ad6e397f4b15/1525659806208/RAF01-11.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb89603ce6458686f37e0/1525659812048/RAF01-12.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb89603ce6458686f37e0/1525659812048/RAF01-12.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb89e2b6a281d80d23414/1525659863951/RAF01-17.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb89e2b6a281d80d23414/1525659863951/RAF01-17.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8a5562fa779ed08508a/1525659864105/RAF01-23.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8a5562fa779ed08508a/1525659864105/RAF01-23.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8af562fa779ed0851f7/1525659863949/RAF01-43.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8af562fa779ed0851f7/1525659863949/RAF01-43.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8bd03ce6458686f3db0/1525659864105/RAF01-51.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8bd03ce6458686f3db0/1525659864105/RAF01-51.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8c970a6ad6e397f52be/1525659865605/RAF01-57.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8c970a6ad6e397f52be/1525659865605/RAF01-57.jpg' },
-            { custom: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8d370a6ad6e397f5499/1525659866099/RAF01-14+%281%29.jpg', thumbnail: 'https://static1.squarespace.com/static/5a51080532601e936558a1a0/5aefb88f562fa779ed084dce/5aefb8d370a6ad6e397f5499/1525659866099/RAF01-14+%281%29.jpg' }
-        ];
+            var fd = new FormData();
+            fd.append('action', 'get');
+            $http.get(api_url, fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).success(function(data) {
+                $scope.col_nums = data;
+            }).error(function(err) {
+                console.log(err);
+            });
+
+        }.bind(this), 100);
+
+        $scope.collectionView = function(param) {
+            $scope.collection = { imagePaths: [], description: '' };
+
+            var api_url = "api/collection.php?col_num=" + param;
+
+            var fd = new FormData();
+            fd.append('action', 'get');
+            $http.get(api_url, fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).success(function(data) {
+                $scope.collection.imagePaths = data[0].imagePaths;
+                $scope.collection.description = data[0].description;
+            }).error(function(err) {
+                console.log(err);
+            });
+        }
+
+        // contact us
+        $scope.submitForm = function(isValid, form) {
+            $scope.submitted = true;
+            $scope.user = {}
+
+            if ($scope.submitted && isValid) {
+                $scope.user.firstName = form.firstName.$modelValue;
+                $scope.user.lastName = form.lastName.$modelValue;
+                $scope.user.email = form.email.$modelValue;
+                $scope.user.subject = form.subject.$modelValue;
+                $scope.user.message = form.message.$modelValue;
+
+                var fd = new FormData();
+                fd.append('first_name', $scope.user.firstName);
+                fd.append('last_name', $scope.user.lastName);
+                fd.append('email', $scope.user.email);
+                fd.append('subject', $scope.user.subject);
+                fd.append('message', $scope.user.message);
+
+                $http.post('api/contact.php', fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                }).success(function(data) {
+                    console.log(data);
+                }).error(function(err) {
+                    console.log(err);
+                });
+            }
+        }
 
     })
     .config(function($stateProvider) {
 
         var gridviewState = {
             name: 'gridview',
+            url: '/gridview',
+            templateUrl: 'pages/gridview.html'
+        }
+
+        var detailState = {
+            name: 'detail',
+            url: '/gridview/product/:itemId',
+            templateUrl: 'pages/gridview-detail.html'
+        }
+
+        var collectionState = {
+            name: 'collection',
+            url: '/collection/:colNum',
+            templateUrl: 'pages/collection.html'
+        }
+
+        var aboutState = {
+            name: 'about',
             url: '/',
-            templateUrl: 'gridview.html'
+            templateUrl: 'pages/about.html'
         }
 
-        var collectionState1 = {
-            name: 'collection1',
-            url: '/collection1',
-            templateUrl: 'collection1.html'
-        }
-
-        var collectionState2 = {
-            name: 'collection2',
-            url: '/collection2',
-            templateUrl: 'collection2.html'
-        }
-
-        var collectionState3 = {
-            name: 'collection3',
-            url: '/collection3',
-            templateUrl: 'collection3.html'
-        }
-
-        var collectionState4 = {
-            name: 'collection4',
-            url: '/collection4',
-            templateUrl: 'collection4.html'
-        }
-
-        var collectionState5 = {
-            name: 'collection5',
-            url: '/collection5',
-            templateUrl: 'collection5.html'
+        var contactState = {
+            name: 'contact',
+            url: '/contact',
+            templateUrl: 'pages/contact.html'
         }
 
         $stateProvider.state(gridviewState);
-        $stateProvider.state(collectionState1);
-        $stateProvider.state(collectionState2);
-        $stateProvider.state(collectionState3);
-        $stateProvider.state(collectionState4);
-        $stateProvider.state(collectionState5);
+        $stateProvider.state(collectionState);
+        $stateProvider.state(detailState);
+        $stateProvider.state(aboutState);
+        $stateProvider.state(contactState);
     })
     .config(["$locationProvider", function($locationProvider) {
         $locationProvider.html5Mode(true);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 22, 2018 at 08:06 AM
+-- Generation Time: Jul 22, 2018 at 03:33 PM
 -- Server version: 5.6.38
 -- PHP Version: 7.1.12
 
@@ -11,7 +11,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `grid_view`
+-- Database: `gridview`
 --
 
 -- --------------------------------------------------------
@@ -27,31 +27,15 @@ CREATE TABLE `collection` (
   `col_description` varchar(4096) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `collections`
+-- Dumping data for table `collection`
 --
 
-CREATE TABLE `collections` (
-  `id` int(10) NOT NULL,
-  `collection_num` int(10) NOT NULL,
-  `description` varchar(4096) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `collection_image`
---
-
-CREATE TABLE `collection_image` (
-  `id` int(10) NOT NULL,
-  `collection_num` int(10) NOT NULL,
-  `image` varchar(500) NOT NULL,
-  `thumbnail` varchar(500) NOT NULL,
-  `uploaded_on` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `collection` (`id`, `col_num`, `col_image`, `col_description`) VALUES
+(4, 1, 'http://192.168.1.16:8888/adm/upload/01532258014.jpg,http://192.168.1.16:8888/adm/upload/11532258014.jpg,http://192.168.1.16:8888/adm/upload/21532258014.jpg,http://192.168.1.16:8888/adm/upload/31532258014.jpg,http://192.168.1.16:8888/adm/upload/41532258014.jpg,http://192.168.1.16:8888/adm/upload/51532258014.jpg,http://192.168.1.16:8888/adm/upload/61532258014.jpg,http://192.168.1.16:8888/adm/upload/71532258014.jpg,http://192.168.1.16:8888/adm/upload/81532258014.jpg', 'It%27s+hard+to+underestimate+the+influence+of+Raf+Simon%27s+Autumn+%2F+Winter+2001+%22Riot%2C+Riot%2C+Riot%22+collection+on+contemporary+fashion.+This+show+marked+Simon%27s+official+transition+to+primarily+oversized+garments+and+punkier+DIY+construction.+Inspired+by+Eastern+European+youths+layering+oversized+garments+to+stay+warm+in+Viennese+flea+markets+during+harsh+winters%2C+Simons+repurposed+vintage+oversized+Fostex+MA-1+bomber+jackets%2C+canvas+military+surplus+belts%2C+and+Desert+Storm-era+shemaghs+and+sewed+on+patches+with+various+cultural+references+identifiable+by+any+alt-youth+of+the+era.+Additionally%2C+garments+were+intentionally+distressed+to+create+holes+and+imperfections+reminiscent+of+how+punks+dressed+in+the+1970%27s.+Most+importantly%2C+however%2C+this+collection+is+credited+with+introducing+exaggerated+baggy+silhouettes+to+the+world+of+men%27s+high+fashion.+Looking+back+now%2C+some+twenty+years+ahead+in+the+future%2C+its+easy+to+decree+that+this+collection+changed+not+only+what+kinds+of+garments+are+being+worn+today%2C+but+also+how+they+are+being+worn.'),
+(5, 2, 'http://192.168.1.16:8888/adm/upload/01532258062.jpeg,http://192.168.1.16:8888/adm/upload/11532258062.jpeg,http://192.168.1.16:8888/adm/upload/21532258062.jpeg,http://192.168.1.16:8888/adm/upload/31532258062.jpeg,http://192.168.1.16:8888/adm/upload/41532258062.jpeg,http://192.168.1.16:8888/adm/upload/51532258062.jpeg,http://192.168.1.16:8888/adm/upload/61532258062.jpeg,http://192.168.1.16:8888/adm/upload/71532258062.jpeg,http://192.168.1.16:8888/adm/upload/81532258062.jpeg', 'This+is+the+area+where+we+can+write+a+blurb.+Something+of+medium+length+%281-2+paragraphs%29.+Talking+about+the+pieces+we+highlighted+and+the+inspiration+for+the+fits+and+the+type+of+mood%2Faesthetic+the+images+are+looking+to+capture.'),
+(6, 3, 'http://192.168.1.16:8888/adm/upload/01532258129.jpeg,http://192.168.1.16:8888/adm/upload/11532258129.jpeg,http://192.168.1.16:8888/adm/upload/21532258129.jpeg,http://192.168.1.16:8888/adm/upload/31532258129.jpeg,http://192.168.1.16:8888/adm/upload/41532258129.jpeg,http://192.168.1.16:8888/adm/upload/51532258129.jpeg,http://192.168.1.16:8888/adm/upload/61532258129.jpeg', 'Raf+Simons%27+obsession+with+Americana+was+never+made+so+apparent+as+his+Autumn+%2F+Winter+2002+%22Virginia+Creeper%22+collection.+Named+after+a+scenic+trail+in+the+mountains+of+rural+Virginia%2C+which+itself+was+named+after+a+flora+common+on+said+trail%2C+the+inspiration+for+this+collection+was+American+small-town+horror+films%2C+particularly+those+centering+on+high+school+students+and+athletic+cultures+of+their+institutions.+Classic+varsity+apparel+like+letterman+jackets+and+printed+sweatshirts+were+paired+with+suggestive+oversized+%22caged%22+pants+and+bomber+jackets%2C+evoking+imagery+of+horror+and+murder.+Select+details+on+many+of+the+garments+gave+subtle+hints+to+terrifying+scenarios%2C+such+as+patches+stating+%22U.F.O.%22+or+sweatshirts+so+distressed+they+are+nearly+falling+apart.'),
+(7, 4, 'http://192.168.1.16:8888/adm/upload/01532258185.jpg,http://192.168.1.16:8888/adm/upload/11532258185.jpg,http://192.168.1.16:8888/adm/upload/21532258185.jpg,http://192.168.1.16:8888/adm/upload/31532258185.jpg,http://192.168.1.16:8888/adm/upload/41532258185.jpg,http://192.168.1.16:8888/adm/upload/51532258185.jpg,http://192.168.1.16:8888/adm/upload/61532258185.jpg,http://192.168.1.16:8888/adm/upload/71532258185.jpg', 'Raf+Simons+has+always+had+a+very+intimate+relationship+to+music%2C+but+his+Autumn+%2F+Winter+2003+%22Closer%22+collection+can+be+considered+his+truest+ode+to+the+bands+that+have+heavily+influenced+him+since+his+childhood+in+Belgium.+His+collaboration+that+season+with+the+archives+of+famed+English+graphic+designer+Peter+Saville+saw+Simons+borrowing+graphics+from+bands+like+New+Order%2C+Joy+Division%2C+and+Orchestral+Maneuvers+in+the+Dark.+This+iconography%2C+paired+with+several+unreleased+images+from+Saville%27s+portfolio%2C+was+placed+on+patches+or+hand-painted+onto+hoodies%2C+coats%2C+shirts%2C+bags%2C+etc.+Much+of+the+actual+clothing+was+inspired+by+80s+staples+of+Manchester+youth+-+trench+coats%2C+military+parkas%2C+classic+tailoring%2C+plaid+driving+caps+and+leather+jackets.');
 
 -- --------------------------------------------------------
 
@@ -448,18 +432,6 @@ ALTER TABLE `collection`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `collections`
---
-ALTER TABLE `collections`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `collection_image`
---
-ALTER TABLE `collection_image`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `filters`
 --
 ALTER TABLE `filters`
@@ -485,19 +457,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `collection`
 --
 ALTER TABLE `collection`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `collections`
---
-ALTER TABLE `collections`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `collection_image`
---
-ALTER TABLE `collection_image`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `filters`

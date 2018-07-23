@@ -1,0 +1,90 @@
+<div id="container">
+    <div>
+        <div class="col-md-7 col-sm-12">
+
+            <flex-slider slider-id="slider" flex-slide="image in collection.imagePaths track by $index" animation="fade" animation-loop="false" sync="#carousel" slideshow="false" control-nav="false" init-delay="100">
+
+                <li>
+                    <img ng-src="{{image.custom}}">
+                </li>
+
+            </flex-slider>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-7 col-sm-12">
+
+            <flex-slider slider-id="carousel" flex-slide="image in collection.imagePaths track by $index" animation="slide" animation-loop="false" item-width="auto" item-margin="5" as-nav-for="#slider" slideshow="false" control-nav="false">
+                <li>
+                    <img ng-src="{{image.thumbnail}}">
+                </li>
+            </flex-slider>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-7 col-sm-12" style="margin-top: 60px; text-align: center">
+            <p>
+                {{collection.description}}
+            </p>
+        </div>
+    </div>
+</div>
+<style>
+    #container {
+        margin-top: 60px;
+        margin-left: 60px;
+        font-family: 'PT Mono' !important;
+    }
+    
+    #carousel img {
+        display: block;
+        opacity: .5;
+        cursor: pointer;
+    }
+    
+    #carousel .flex-active-slide img {
+        opacity: 1;
+        cursor: default;
+    }
+    
+    #slider {
+        margin: 0 0 20px;
+        background: rgba(175, 175, 175, .1);
+        border: none;
+        box-shadow: 0 0px 0px;
+    }
+    
+    #carousel {
+        border: none;
+        box-shadow: 0 0px 0px;
+    }
+    
+    #slider .slides img {
+        height: 447px;
+        width: auto;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    #carousel .slides img {
+        width: auto;
+        height: 80px;
+    }
+    
+    p {
+        line-height: 1.75em;
+        white-space: pre-line;
+    }
+    
+    @media (max-width: 600px) {
+        #container {
+            margin-top: 70px;
+            margin-left: 0px;
+        }
+        #slider .slides img {
+            height: 250px;
+            width: auto;
+        }
+    }
+</style>

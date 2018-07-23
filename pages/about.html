@@ -1,0 +1,101 @@
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-6 content">
+            <div>
+                <h1>Artifact</h1>
+            </div>
+            <div class="description">
+                <p>Artifact New York is a rental service that caters to designer fashion connoisseurs, entertainers, celebrities, actors/actresses, models, and designers. Combining selectively curated collections, Artifact New York is a unique addition to
+                    the current fashion landscape. Artifact New York represents the tastes of individuals who commonly share the passion of clothing and the story they tell. Our goal is to provide people access to historically important garments and to
+                    further discussion surrounding culturally relevant designers.</p>
+                <p>Many of the pieces in the archive are hard to source, which is why it has taken years of research, patience, and collecting to create. Each individual garment was sourced from places throughout the world. Not only do these garments tell
+                    narratives about contemporary fashion’s trajectory, they all contain highly individualized stories because they have all been pre-owned.</p>
+            </div>
+            <div class="nav-link">
+                <span><a ui-sref="gridview">The Archive</a><a class="social" href="#" target="_blank"><svg class="instagram" viewBox="0 0 64 64" id="yui_3_17_2_1_1532342446807_400"><use class="use-icon" xlink:href="social-accounts.svg#instagram-icon"></use><use class="use-mask" xlink:href="assets/img/social-accounts.svg#instagram-mask" id="yui_3_17_2_1_1532342446807_399"></use></svg></a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .main-content {
+        height: 100%;
+        background-image: linear-gradient( rgba(196, 196, 196, 0.45), rgba(196, 196, 196, 0.45)), url('./assets/img/background.jpg');
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: cover;
+        padding: 40px 60px 60px 60px;
+        color: #222;
+        text-align: left;
+    }
+    
+    .main-content .row {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .main-content .description,
+    .main-content .nav-link {
+        padding-top: 20px;
+    }
+    
+    .main-content h1,
+    .main-content .nav-link {
+        font-family: 'Proxima Nova';
+        text-transform: uppercase;
+        letter-spacing: .5em;
+    }
+    
+    .content h1 {
+        font-size: 62px;
+        line-height: 1em;
+        font-weight: 400;
+    }
+    
+    .content p {
+        font-family: 'PT Mono';
+        line-height: 1.4em;
+        letter-spacing: .03em;
+        color: #222;
+    }
+    
+    .content .nav-link {
+        padding-bottom: 25px;
+    }
+    
+    .nav-link .social {
+        padding-left: 20px;
+    }
+    
+    .nav-link a {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: .5em;
+        color: #222;
+        line-height: 1em;
+    }
+    
+    .nav-link a:hover {
+        text-decoration: none;
+        color: gray;
+    }
+    
+    .nav-link .instagram {
+        width: 28px;
+        height: 28px;
+        position: relative;
+        transform: translateY(30%);
+        border-radius: 50%;
+    }
+    
+    @media(max-width: 600px) {
+        .main-content {
+            padding: 20px;
+        }
+        .content h1 {
+            font-size: 34px;
+        }
+    }
+</style>
