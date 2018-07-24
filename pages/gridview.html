@@ -1,10 +1,10 @@
 <div layout="row">
     <div layout="row" flex layout-wrap class="item-area">
         <div ng-repeat="item in displayItem">
-            <div class="item" ng-click="viewItem(item.id);" ui-sref="detail({itemId: item.id})">
+            <div class="item" ui-sref="detail({itemId: item.id})">
                 <img src="{{item.image}}" alt="">
             </div>
-            <div class="item_hide display-none" ng-click="viewItem(item.id);" ui-sref="detail({itemId: item.id})">
+            <div class="item_hide display-none" ui-sref="detail({itemId: item.id})">
                 <img src="{{item.image}}" alt="">
             </div>
         </div>

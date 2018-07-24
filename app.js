@@ -1,6 +1,6 @@
 angular
     .module('myApp', ['ngMaterial', 'ngMessages', 'ui.router', 'angular-flexslider'])
-    .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $stateParams) {
+    .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $location, $window) {
         $scope.toggleLeft = buildDelayedToggler('left');
         $scope.filterLeft = buildToggler('filter-left');
         $scope.isOpen = false;
@@ -39,7 +39,6 @@ angular
 
         $scope.toggle = function() {
             $scope.isOpen = !$scope.isOpen;
-            console.log($scope.isOpen);
         }
 
         $scope.colToggle = function() {
@@ -273,7 +272,7 @@ angular
                         $scope.filter_option.push({ id: $scope.filters[index].sub[idx].id, parent: $scope.filters[index].sub[idx].parent, state: 0 });
                     }
                 }
-                console.log($scope.filters);
+
                 $scope.products = data.product;
                 $scope.displayItem = $scope.products;
             }).error(function(err) {
@@ -285,26 +284,6 @@ angular
         $scope.showItem = false;
         $scope.curProduct = [];
         $scope.itemImages = [];
-        $scope.viewItem = function(id) {
-            console.log(id);
-            $scope.showItem = true;
-            var api_url = "api/getProductDetail.php";
-            var fd = new FormData();
-            fd.append('id', id);
-            var _this = this;
-            $http.post(api_url, fd, {
-                transformRequest: angular.identity,
-                headers: { 'Content-Type': undefined }
-            }).success(function(data) {
-                $scope.curProduct = data;
-                if ($scope.curProduct['image'] != "undefined") {
-                    $scope.itemImages = $scope.curProduct['image'].split(',');
-                }
-                console.log($scope.curProduct);
-            }).error(function(err) {
-                console.log(err);
-            });
-        }
 
         $scope.backToList = function() {
             $scope.showItem = false;
@@ -409,24 +388,6 @@ angular
 
         }.bind(this), 100);
 
-        $scope.collectionView = function(param) {
-            $scope.collection = { imagePaths: [], description: '' };
-
-            var api_url = "api/collection.php?col_num=" + param;
-
-            var fd = new FormData();
-            fd.append('action', 'get');
-            $http.get(api_url, fd, {
-                transformRequest: angular.identity,
-                headers: { 'Content-Type': undefined }
-            }).success(function(data) {
-                $scope.collection.imagePaths = data[0].imagePaths;
-                $scope.collection.description = data[0].description;
-            }).error(function(err) {
-                console.log(err);
-            });
-        }
-
         // contact us
         $scope.submitForm = function(isValid, form) {
             $scope.submitted = true;
@@ -450,37 +411,86 @@ angular
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).success(function(data) {
-                    console.log(data);
+                    alert(data.message);
                 }).error(function(err) {
                     console.log(err);
                 });
             }
         }
-
     })
-    .config(function($stateProvider) {
+    .controller('ProductCtrl', function($scope, $http, productId) {
+        var api_url = "api/getProductDetail.php";
+        var fd = new FormData();
+        fd.append('id', productId);
+        $http.post(api_url, fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function(data) {
+            $scope.curProduct = data;
+            if ($scope.curProduct['image'] != "undefined") {
+                $scope.itemImages = $scope.curProduct['image'].split(',');
+            }
+            console.log($scope.curProduct);
+        }).error(function(err) {
+            console.log(err);
+        });
+    })
+    .controller('CollectionCtrl', function($scope, $http, colNum) {
+        $scope.collection = { imagePaths: [], description: '' };
+
+        var api_url = "api/collection.php?col_num=" + colNum;
+
+        var fd = new FormData();
+        fd.append('action', 'get');
+        $http.get(api_url, fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function(data) {
+            $scope.collection.imagePaths = data[0].imagePaths;
+            $scope.collection.description = data[0].description;
+        }).error(function(err) {
+            console.log(err);
+        });
+
+        setTimeout(function() { $('#carousel').resize(); }, 500);
+    })
+    .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+
+        $urlRouterProvider.otherwise('/');
 
         var gridviewState = {
             name: 'gridview',
-            url: '/gridview',
+            url: '/',
             templateUrl: 'pages/gridview.html'
         }
 
         var detailState = {
             name: 'detail',
-            url: '/gridview/product/:itemId',
-            templateUrl: 'pages/gridview-detail.html'
+            url: '/product/:itemId',
+            templateUrl: 'pages/gridview-detail.html',
+            controller: 'ProductCtrl',
+            resolve: {
+                productId: function($transition$) {
+                    return $transition$.params().itemId;
+                }
+            }
         }
 
         var collectionState = {
             name: 'collection',
             url: '/collection/:colNum',
-            templateUrl: 'pages/collection.html'
+            templateUrl: 'pages/collection.html',
+            controller: 'CollectionCtrl',
+            resolve: {
+                colNum: function($transition$) {
+                    return $transition$.params().colNum;
+                }
+            }
         }
 
         var aboutState = {
             name: 'about',
-            url: '/',
+            url: '/about',
             templateUrl: 'pages/about.html'
         }
 
@@ -495,7 +505,5 @@ angular
         $stateProvider.state(detailState);
         $stateProvider.state(aboutState);
         $stateProvider.state(contactState);
-    })
-    .config(["$locationProvider", function($locationProvider) {
         $locationProvider.html5Mode(true);
-    }]);
+    });

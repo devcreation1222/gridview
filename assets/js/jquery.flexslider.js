@@ -12,7 +12,7 @@
 
         // making variables public
         slider.vars = $.extend({}, $.flexslider.defaults, options);
-        console.log(slider.vars);
+
         var namespace = slider.vars.namespace,
             msGesture = window.navigator && window.navigator.msPointerEnabled && window.MSGesture,
             touch = (("ontouchstart" in window) || msGesture || window.DocumentTouch && document instanceof DocumentTouch) && slider.vars.touch,
@@ -25,8 +25,6 @@
             reverse = slider.vars.reverse;
         var carousel = false;
         if (slider.vars.itemWidth > 0) {
-            carousel = true;
-        } else if (slider.vars.itemWidth == "auto") {
             carousel = true;
         } else {
             carousel = false;
@@ -399,7 +397,7 @@
                     localX = 0,
                     localY = 0,
                     accDx = 0;
-
+                console.log("touch");
                 if (!msGesture) {
                     el.addEventListener('touchstart', onTouchStart, false);
 
@@ -561,16 +559,65 @@
                 }
             },
             resize: function() {
+                // if (!slider.animating && slider.is(':visible')) {
+                //     if (!carousel) slider.doMath();
+
+                //     if (fade) {
+                //         // SMOOTH HEIGHT:
+                //         methods.smoothHeight();
+                //     } else if (carousel) { //CAROUSEL:
+                //         slider.slides.width(slider.computedW);
+                //         slider.update(slider.pagingCount);
+                //         slider.setProps();
+                //     } else if (vertical) { //VERTICAL:
+                //         slider.viewport.height(slider.h);
+                //         slider.setProps(slider.h, "setTotal");
+                //     } else {
+                //         // SMOOTH HEIGHT:
+                //         if (slider.vars.smoothHeight) methods.smoothHeight();
+                //         slider.newSlides.width(slider.computedW);
+                //         slider.setProps(slider.computedW, "setTotal");
+                //     }
+                // }
+
+                /**
+                 * custom code
+                 */
                 if (!slider.animating && slider.is(':visible')) {
+
+                    // set image sizes to auto
+                    $("#carousel img").css("width", "auto");
+
+                    var countImages = 0;
+                    var sumImagesWidth = 0;
+
+                    // walk over images in slider, count the images and calc the median of those pics
+                    $('#carousel img').each(function(i, obj) {
+                        sumImagesWidth = sumImagesWidth + $(obj).width();
+                        countImages++;
+                    });
+
+                    carousel = true;
+
                     if (!carousel) slider.doMath();
 
                     if (fade) {
                         // SMOOTH HEIGHT:
                         methods.smoothHeight();
                     } else if (carousel) { //CAROUSEL:
-                        slider.slides.width(slider.computedW);
+
+                        // set new median value   
+                        slider.vars.itemWidth = sumImagesWidth / countImages;
+
+                        slider.pagingCount = parseInt(sumImagesWidth / slider.computedW);
+                        if (sumImagesWidth % slider.computedW) {
+                            slider.pagingCount = slider.pagingCount + 1;
+                        }
+
+                        slider.slides.width(sumImagesWidth);
                         slider.update(slider.pagingCount);
                         slider.setProps();
+
                     } else if (vertical) { //VERTICAL:
                         slider.viewport.height(slider.h);
                         slider.setProps(slider.h, "setTotal");
@@ -580,7 +627,11 @@
                         slider.newSlides.width(slider.computedW);
                         slider.setProps(slider.computedW, "setTotal");
                     }
+
+                    // set the <li>-tags around the pics to auto width
+                    $("#carousel li").css("width", "auto");
                 }
+
             },
             smoothHeight: function(dur) {
                 if (!vertical || fade) {

@@ -7,10 +7,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <title>ARTIFACT</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/default-favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" />
@@ -67,16 +68,16 @@
                     <div style="padding-top:  100px;">
                         <md-list-item ng-click="gotoMain();" ui-sref="gridview" ui-sref-active="active">
                             <!-- <p>Main</p> -->
-                            <p>Main</p>
+                            <h5>Main</h5>
                         </md-list-item>
                         <md-list-item ui-sref="contact">
-                            <p>Contact</p>
+                            <h5>Contact</h5>
                         </md-list-item>
                         <md-list-item ui-sref="about">
-                            <p>About</p>
+                            <h5>About</h5>
                         </md-list-item>
                         <md-list-item ng-click="toggle()">
-                            <p>Filter</p>
+                            <h5>Filter</h5>
                         </md-list-item>
                         <ul ng-show="isOpen" class="menu-toggle-list" ng-class="{'toggle-active': isOpen}">
                             <li>
@@ -90,7 +91,7 @@
                                 </md-checkbox>
                                 <hr>
                                 <div layout="row" layout-wrap ng-show="filter.cname!='Category'" class="sub-cate">
-                                    <md-checkbox flex="33" ng-repeat="sub_cate in filter.sub" ng-click="selectCurItem(sub_cate.id);" ng-checked="checkedItem(sub_cate.id)">
+                                    <md-checkbox flex="50" ng-repeat="sub_cate in filter.sub" ng-click="selectCurItem(sub_cate.id);" ng-checked="checkedItem(sub_cate.id)">
                                         {{ sub_cate.cname }}
                                     </md-checkbox>
                                 </div>
@@ -102,11 +103,11 @@
                             </li>
                         </ul>
                         <md-list-item ng-click="colToggle()">
-                            <p>Collections</p>
+                            <h5>Collections</h5>
                         </md-list-item>
                         <ul ng-show="isColOpen" class="menu-toggle-list" ng-class="{'toggle-active': isColOpen}" style="padding-left: 30px;">
-                            <li ng-repeat="col_num in col_nums" ui-sref="collection({colNum: col_num.col_num})" ng-click="collectionView(col_num.col_num)">
-                                <p>{{col_num.col_num}}</p>
+                            <li ng-repeat="col_num in col_nums" ui-sref="collection({colNum: col_num.col_num})">
+                                <h5>{{col_num.col_num}}</h5>
                             </li>
                         </ul>
                     </div>

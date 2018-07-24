@@ -1,39 +1,42 @@
 <div id="container">
-    <div>
-        <div class="col-md-7 col-sm-12">
+    <div style="margin: auto; text-align: center">
+        <div>
+            <div>
+                <div class="col-md-7 col-sm-12">
 
-            <flex-slider slider-id="slider" flex-slide="image in collection.imagePaths track by $index" animation="fade" animation-loop="false" sync="#carousel" slideshow="false" control-nav="false" init-delay="100">
+                    <flex-slider slider-id="slider" flex-slide="image in collection.imagePaths track by $index" animation="fade" animation-loop="false" sync="#carousel" slideshow="false" control-nav="false" init-delay="100">
 
-                <li>
-                    <img ng-src="{{image.custom}}">
-                </li>
+                        <li>
+                            <img ng-src="{{image.custom}}">
+                        </li>
 
-            </flex-slider>
-        </div>
-    </div>
-    <div>
-        <div class="col-md-7 col-sm-12">
+                    </flex-slider>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-7 col-sm-12">
 
-            <flex-slider slider-id="carousel" flex-slide="image in collection.imagePaths track by $index" animation="slide" animation-loop="false" item-width="auto" item-margin="5" as-nav-for="#slider" slideshow="false" control-nav="false">
-                <li>
-                    <img ng-src="{{image.thumbnail}}">
-                </li>
-            </flex-slider>
-        </div>
-    </div>
-    <div>
-        <div class="col-md-7 col-sm-12" style="margin-top: 60px; text-align: center">
-            <p>
-                {{collection.description}}
-            </p>
+                    <flex-slider slider-id="carousel" flex-slide="image in collection.imagePaths track by $index" animation="slide" animation-loop="false" item-margin="5" as-nav-for="#slider" slideshow="false" control-nav="false">
+                        <li>
+                            <img ng-src="{{image.thumbnail}}">
+                        </li>
+                    </flex-slider>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-7 col-sm-12" style="text-align: center">
+                    <p>
+                        <font>{{collection.description}}</font>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <style>
     #container {
         margin-top: 60px;
-        margin-left: 60px;
-        font-family: 'PT Mono' !important;
+        margin-left: 200px;
     }
     
     #carousel img {
@@ -49,12 +52,13 @@
     
     #slider {
         margin: 0 0 20px;
-        background: rgba(175, 175, 175, .1);
+        background: rgba(175, 175, 175, .4);
         border: none;
         box-shadow: 0 0px 0px;
     }
     
     #carousel {
+        margin: 0 0 30px;
         border: none;
         box-shadow: 0 0px 0px;
     }

@@ -29,6 +29,21 @@ body {
     padding: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Proxima Nova';
+}
+
+p {
+    font-family: 'Proxima Nova';
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.75em;
+}
+
 .gridListdemoBasicUsage md-grid-list {
     margin: 8px;
 }
@@ -65,7 +80,6 @@ md-sidenav-container,
 md-sidenav>md-content,
 md-sidenav,
 .md-toolbar-tools {
-    font-family: 'Proxima Nova' !important;
     font-weight: 400;
     background: lightgray;
     color: #242628;
@@ -131,7 +145,7 @@ md-list-item>p {
     transition-duration: 0.5s;
     transition-timing-function: ease-in;
     padding: 0;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .toggle-active {
@@ -153,12 +167,16 @@ md-checkbox {
     margin: 0;
 }
 
+md-checkbox .md-label {
+    margin-left: 22px;
+}
+
 md-checkbox .md-icon {
-    border-color: white;
+    border-color: black;
 }
 
 md-checkbox.md-checked .md-icon {
-    background: white;
+    background: inherit;
 }
 
 md-checkbox.md-checked .md-icon:after {
@@ -303,6 +321,14 @@ md-checkbox.md-checked .md-icon:after {
     margin-top: 5px;
 }
 
+.sub-cate-desktop {
+    display: block;
+}
+
+.sub-cate-mobile {
+    display: none;
+}
+
 .item-area {
     width: 100%;
     /* position: absolute; */
@@ -339,24 +365,33 @@ md-sidenav {
 }
 
 .p-images {
+    max-width: 50%;
+    height: 100%;
+}
+
+.p-images .image-scroll {
     height: 100vh;
-    padding: 50px;
+    padding: 50px 17px 50px 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .p-detail {
-    padding: 50px;
+    max-width: 50%;
+    height: 100vh;
     position: fixed;
     left: 62%;
-    max-height: 80vh;
+    padding: 50px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.p-detail p {
-    font-family: 'PT Mono' !important;
-    line-height: 1.75em;
-    font-size: 13px;
-    font-weight: 500;
+.p-detail h1 {
+    font-size: 1.3em;
+}
+
+.p-paragraph {
+    white-space: pre-line;
 }
 
 @media (max-width: 959px) {
@@ -374,6 +409,15 @@ md-sidenav {
     md-sidenav>md-content .md-icon-button {
         display: block;
     }
+    .sub-cate-desktop {
+        display: none;
+    }
+    .sub-cate-mobile {
+        display: block;
+    }
+    .menu-toggle-list {
+        font-size: 9px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -384,15 +428,17 @@ md-sidenav {
         display: block;
     }
     .detail-mobile p {
-        font-family: 'PT Mono' !important;
+        font-family: 'Proxima Nova' !important;
         line-height: 1.75em;
         font-size: 13px;
         font-weight: 500;
     }
+    .p-images .image-scroll {
+        padding: 50px 10px 10px 10px
+    }
     .p-detail {
         left: 50%;
-        padding-right: 10px;
-        padding-left: 0;
+        padding: 50px 10px 10px 0px;
     }
     /* 2018-07-19 */
     .item_hide {
@@ -409,4 +455,20 @@ md-sidenav {
 md-backdrop.md-sidenav-backdrop {
     z-index: 998;
     position: fixed;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: white;
 }

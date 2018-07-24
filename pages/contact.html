@@ -5,18 +5,20 @@
         <div class="col-md-5 col-sm-5">
             <div class="block block-top">
                 <div class="block-top-content">
-                    <h1>Contact Us</h1>
-                    <p>&nbsp;</p>
-                    <p>hugh@thehighnotenyc.com</p>
-                    <p>max@thehighnotenyc.com</p>
-                    <p>dominik@thehighnotenyc.com</p>
+                    <h1>Contact</h1>
+                    <p>Email us at: </p>
+                    <p>Feel free to email us about:</p>
                 </div>
             </div>
-            <div class="block block-space">
-                <div class="block-space-content"></div>
-            </div>
             <div class="block block-notify">
-                <h3>PLEASE FILL OUT THE FORM BELOW IF YOU ARE INTERESTED IN RENTING ANY OF THE ARCHIVE. SOMEONE WILL REPLY TO YOU WITHIN 24 HOURS.</h3>
+                <ul class="dashed">
+                    <li>Product Information</li>
+                    <li>Order Information</li>
+                    <li>Submitting an Offer</li>
+                    <li>Accessing our Archives</li>
+                    <li>Archive Rental</li>
+                    <li>Potential Collaborations and Projects</li>
+                </ul>
             </div>
             <div class="block block-form">
                 <form name="contactForm" ng-submit="submitForm(contactForm.$valid, contactForm)" novalidate>
@@ -25,10 +27,16 @@
                         <p ng-show="contactForm.lastName.$invalid && contactForm.firstName.$valid && submitted" class="help-block">Name is missing required subfields: Last</p>
                         <p ng-show="contactForm.firstName.$invalid && contactForm.lastName.$invalid && submitted" class="help-block">Name is required.</p>
                         <label>Name *</label>
-                        <input type="text" name="firstName" class="form-control" ng-model="firstName" required />
-                        <label for="firstName">First Name</label>
-                        <input type="text" name="lastName" class="form-control" ng-model="lastName" required />
-                        <label for="lastName">Last Name</label>
+                        <div style="display: flex">
+                            <div>
+                                <input type="text" name="firstName" class="form-control" ng-model="firstName" required />
+                                <label for="firstName">First Name</label>
+                            </div>
+                            <div style="margin-left: 10px;">
+                                <input type="text" name="lastName" class="form-control" ng-model="lastName" required />
+                                <label for="lastName">Last Name</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group" ng-class="{'has-error': contactForm.email.$invalid && submitted}">
                         <p ng-show="contactForm.email.$invalid && submitted" class="help-block">Email is required.</p>
@@ -51,6 +59,10 @@
         </div>
         <div class="col-md-6 col-sm-6"></div>
     </div>
+
+    <div class="block block-social">
+        <a href=""><i class="fa fa-instagram"></i> </a>
+    </div>
 </div>
 
 <style>
@@ -68,12 +80,10 @@
         padding-bottom: 17px;
     }
     
-    .block-top-content h1,
-    .block-notify h3 {
+    .block-top-content h1 {
         font-family: 'Proxima Nova';
         font-weight: 600;
         letter-spacing: 4px;
-        text-transform: uppercase;
         line-height: 1.25em;
         color: #242628;
     }
@@ -86,16 +96,20 @@
         font-size: 0.8em;
     }
     
-    .block-top-content p {
-        text-align: center;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-family: 'PT Mono';
+    .block-top-content p,
+    .block-form p,
+    .block-form label {
+        font-family: 'Proxima Nova';
         font-weight: 400;
         font-size: 13px;
         letter-spacing: -.03em;
         line-height: 1.75em;
         color: rgba(17, 17, 17, .6);
+    }
+    
+    .block-top-content p {
+        margin-top: 20px;
+        margin-bottom: 10px;
     }
     
     .wrapper .block-space,
@@ -105,7 +119,55 @@
         padding-bottom: 17px;
     }
     
+    .block-notify ul.dashed {
+        list-style-type: none;
+    }
+    
+    ul.dashed>li {
+        text-indent: -35px;
+    }
+    
+    ul.dashed>li:before {
+        content: "- ";
+        text-indent: -35px;
+    }
+    
     .block-space .block-space-content {
         padding-bottom: 5%;
+    }
+    
+    .block-form button {
+        padding: 1em 2.5em;
+        border-radius: unset;
+        color: #fff;
+        background-color: #272727;
+        border-width: 0;
+        line-height: 1em;
+        font-size: 14px;
+    }
+    
+    .block-form button:hover,
+    .block-form button:focus,
+    .block-form button:active {
+        background-color: #272727;
+        border: none;
+        outline: 0;
+    }
+    
+    .block-social {
+        margin-top: 40px;
+        text-align: center;
+    }
+    
+    .block-social a,
+    .block-social a:hover {
+        color: #222;
+        font-size: 36px;
+    }
+    
+    @media(max-width: 600px) {
+        .wrapper {
+            padding: 65px 10px;
+        }
     }
 </style>
