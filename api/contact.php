@@ -16,4 +16,5 @@ mail($admin_email, $subject, $message, $headers);
 
 echo json_encode(array('status' => 'success', 'message' => 'Email has been sent successfully'));
 
+mysqli_close($link);
 ?>

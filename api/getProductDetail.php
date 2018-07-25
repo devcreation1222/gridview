@@ -50,4 +50,7 @@ if($product) {
 }
 
 echo json_encode($output);
+
+mysqli_close($link);
+
 ?>

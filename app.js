@@ -1,5 +1,58 @@
 angular
     .module('myApp', ['ngMaterial', 'ngMessages', 'ui.router', 'angular-flexslider'])
+    .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+
+        $urlRouterProvider.otherwise('/');
+
+        var gridviewState = {
+            name: 'gridview',
+            url: '/',
+            templateUrl: 'pages/gridview.html'
+        }
+
+        var detailState = {
+            name: 'detail',
+            url: '/product/:itemId',
+            templateUrl: 'pages/gridview-detail.html',
+            controller: 'ProductCtrl',
+            resolve: {
+                productId: function($transition$) {
+                    return $transition$.params().itemId;
+                }
+            }
+        }
+
+        var collectionState = {
+            name: 'collection',
+            url: '/collection/:colNum',
+            templateUrl: 'pages/collection.html',
+            controller: 'CollectionCtrl',
+            resolve: {
+                colNum: function($transition$) {
+                    return $transition$.params().colNum;
+                }
+            }
+        }
+
+        var aboutState = {
+            name: 'about',
+            url: '/about',
+            templateUrl: 'pages/about.html'
+        }
+
+        var contactState = {
+            name: 'contact',
+            url: '/contact',
+            templateUrl: 'pages/contact.html'
+        }
+
+        $stateProvider.state(gridviewState);
+        $stateProvider.state(collectionState);
+        $stateProvider.state(detailState);
+        $stateProvider.state(aboutState);
+        $stateProvider.state(contactState);
+        $locationProvider.html5Mode(true);
+    })
     .controller('AppCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $location, $window) {
         $scope.toggleLeft = buildDelayedToggler('left');
         $scope.filterLeft = buildToggler('filter-left');
@@ -412,6 +465,7 @@ angular
                     headers: { 'Content-Type': undefined }
                 }).success(function(data) {
                     alert(data.message);
+                    $window.location.reload();
                 }).error(function(err) {
                     console.log(err);
                 });
@@ -452,58 +506,21 @@ angular
             console.log(err);
         });
 
-        setTimeout(function() { $('#carousel').resize(); }, 500);
-    })
-    .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-
-        $urlRouterProvider.otherwise('/');
-
-        var gridviewState = {
-            name: 'gridview',
-            url: '/',
-            templateUrl: 'pages/gridview.html'
-        }
-
-        var detailState = {
-            name: 'detail',
-            url: '/product/:itemId',
-            templateUrl: 'pages/gridview-detail.html',
-            controller: 'ProductCtrl',
-            resolve: {
-                productId: function($transition$) {
-                    return $transition$.params().itemId;
-                }
+        setTimeout(function() {
+            $('#carousel').css('padding-left', 0);
+            $('#carousel').css('padding-right', 0);
+            $('#carousel').css('left', '0px');
+            $('#carousel').resize();
+            var sumImagesWidth = 0;
+            $('#carousel img').each(function(i, obj) {
+                sumImagesWidth = sumImagesWidth + $(obj).width();
+            });
+            if (sumImagesWidth < 800) {
+                $('#carousel').css('padding-left', ((800 - sumImagesWidth) / 2));
+            } else {
+                console.log(sumImagesWidth);
+                $('#carousel').css('left', '30px');
             }
-        }
-
-        var collectionState = {
-            name: 'collection',
-            url: '/collection/:colNum',
-            templateUrl: 'pages/collection.html',
-            controller: 'CollectionCtrl',
-            resolve: {
-                colNum: function($transition$) {
-                    return $transition$.params().colNum;
-                }
-            }
-        }
-
-        var aboutState = {
-            name: 'about',
-            url: '/about',
-            templateUrl: 'pages/about.html'
-        }
-
-        var contactState = {
-            name: 'contact',
-            url: '/contact',
-            templateUrl: 'pages/contact.html'
-        }
-
-        $stateProvider.state(gridviewState);
-        $stateProvider.state(collectionState);
-        $stateProvider.state(detailState);
-        $stateProvider.state(aboutState);
-        $stateProvider.state(contactState);
-        $locationProvider.html5Mode(true);
+            console.log($('#carousel').css('background-color'));
+        }, 500);
     });
