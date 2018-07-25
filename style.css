@@ -418,6 +418,9 @@ md-sidenav {
     .menu-toggle-list {
         font-size: 9px;
     }
+    md-icon {
+        color: #242628 !important;
+    }
 }
 
 @media (max-width: 600px) {
