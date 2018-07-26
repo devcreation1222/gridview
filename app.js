@@ -522,5 +522,5 @@ angular
                 $('#carousel').css('left', '30px');
             }
             console.log($('#carousel').css('background-color'));
-        }, 1000);
+        }, 500);
     });

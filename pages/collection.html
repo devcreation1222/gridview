@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div>
-                <div class="col-md-7 col-sm-12" style="text-align: center">
+                <div class="col-md-7 col-sm-12 col-description" style="text-align: center">
                     <p>
                         <font>{{collection.description}}</font>
                     </p>
@@ -37,6 +37,7 @@
     #container {
         margin-top: 60px;
         margin-left: 200px;
+        height: 100vh;
     }
     
     #carousel img {
@@ -82,6 +83,25 @@
         white-space: pre-line;
     }
     
+    @media(max-width: 995px) {
+        #container {
+            margin-top: 70px;
+            margin-left: 0px;
+        }
+        #slider {
+            width: 738px;
+            margin: 0 0 20px;
+        }
+        #slider .slides img {
+            height: 400px;
+            width: auto;
+        }
+        #carousel {
+            padding-left: 80px !important;
+            left: 0px !important;
+        }
+    }
+    
     @media (max-width: 600px) {
         #container {
             margin-top: 70px;
@@ -100,6 +120,9 @@
         #carousel {
             padding-left: 0px !important;
             left: 0px !important;
+        }
+        .col-description {
+            padding: 0 20px 30px 20px;
         }
     }
 </style>

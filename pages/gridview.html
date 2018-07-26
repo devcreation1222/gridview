@@ -1,3 +1,12 @@
+<div id="loader-wrapper">
+    <div class="loader-section section-left">
+        <h1 class="font-left">ARTI</h1>
+    </div>
+    <div class="loader-section section-right ">
+        <h1 class="font-right">FACT</h1>
+    </div>
+
+</div>
 <div layout="row">
     <div layout="row" flex layout-wrap class="item-area">
         <div ng-repeat="item in displayItem">
@@ -10,3 +19,52 @@
         </div>
     </div>
 </div>
+
+<style>
+    .loader-section.section-left .font-left {
+        position: relative;
+        top: 50%;
+        left: 77.5%;
+        font-size: 64px;
+        letter-spacing: 10px;
+        color: #222;
+        transform: translateY(-50%)
+    }
+    
+    .loader-section.section-right .font-right {
+        position: relative;
+        top: 50%;
+        font-size: 64px;
+        letter-spacing: 10px;
+        color: #222;
+        transform: translateY(-50%)
+    }
+    
+    @media(max-width: 995px) {
+        .loader-section.section-left .font-left {
+            top: 50%;
+            left: 65%;
+            font-size: 44px;
+            letter-spacing: 6px;
+        }
+        .loader-section.section-right .font-right {
+            top: 50%;
+            font-size: 44px;
+            letter-spacing: 6px;
+        }
+    }
+    
+    @media(max-width: 600px) {
+        .loader-section.section-left .font-left {
+            top: 50%;
+            left: 50%;
+            font-size: 32px;
+            letter-spacing: 6px;
+        }
+        .loader-section.section-right .font-right {
+            top: 50%;
+            font-size: 32px;
+            letter-spacing: 6px;
+        }
+    }
+</style>
