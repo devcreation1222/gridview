@@ -2,7 +2,7 @@
     <div style="margin: auto; text-align: center">
         <div>
             <div>
-                <div class="col-md-7 col-sm-12">
+                <div class="col-md-12 col-sm-12">
 
                     <flex-slider slider-id="slider" flex-slide="image in collection.imagePaths track by $index" animation="fade" animation-loop="false" sync="#carousel" slideshow="false" control-nav="false" init-delay="100">
 
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div>
-                <div class="col-md-7 col-sm-12">
+                <div class="col-md-12 col-sm-12">
 
                     <flex-slider slider-id="carousel" flex-slide="image in collection.imagePaths track by $index" animation="slide" animation-loop="false" item-margin="5" as-nav-for="#slider" slideshow="false" control-nav="false">
                         <li>
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div>
-                <div class="col-md-7 col-sm-12 col-description" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-description" style="text-align: center">
                     <p>
                         <font>{{collection.description}}</font>
                     </p>
@@ -35,9 +35,13 @@
 </div>
 <style>
     #container {
-        margin-top: 60px;
-        margin-left: 200px;
+        width: 800px;
         height: 100vh;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        margin-top: 60px;
     }
     
     #carousel img {
@@ -52,7 +56,7 @@
     }
     
     #slider {
-        width: 800px;
+        max-width: 100%;
         margin: 0 0 20px;
         background: rgba(175, 175, 175, .4);
         border: none;
@@ -85,11 +89,12 @@
     
     @media(max-width: 995px) {
         #container {
+            width: 750px;
             margin-top: 70px;
             margin-left: 0px;
         }
         #slider {
-            width: 738px;
+            max-width: 100%;
             margin: 0 0 20px;
         }
         #slider .slides img {
@@ -97,13 +102,14 @@
             width: auto;
         }
         #carousel {
-            padding-left: 80px !important;
+            padding-left: 67px !important;
             left: 0px !important;
         }
     }
     
     @media (max-width: 600px) {
         #container {
+            width: 380px;
             margin-top: 70px;
             margin-left: 0px;
         }

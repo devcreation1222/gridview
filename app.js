@@ -346,6 +346,25 @@ angular
             $scope.backToList();
         }
 
+        $scope.seperate = function() {
+            $(".loader-section.section-left").css("transform", "translateX(-100%)");
+            $(".loader-section.section-left").css("-webkit-transform", "translateX(-100%)");
+            $(".loader-section.section-left").css("-ms-transform", "translateX(-100%)");
+            $(".loader-section.section-left").css("-webkit-transition", "all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000)");
+            $(".loader-section.section-left").css("transition", "all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000)");
+            $(".loader-section.section-right").css("-webkit-transform", "translateX(100%)");
+            $(".loader-section.section-right").css("-ms-transform", "translateX(100%)");
+            $(".loader-section.section-right").css("transform", "translateX(100%)");
+            $(".loader-section.section-right").css("-webkit-transition", "all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000)");
+            $(".loader-section.section-right").css("transition", "all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000)");
+            $("#loader-wrapper").css("visibility", "hidden");
+            $("#loader-wrapper").css("-webkit-transform", "translateY(-100%)");
+            $("#loader-wrapper").css("-ms-transform", "translateY(-100%)");
+            $("#loader-wrapper").css("transform", "translateY(-100%)");
+            $("#loader-wrapper").css("-webkit-transition", "all 0.3s 1s ease-out");
+            $("#loader-wrapper").css("transition", "all 0.3s 1s ease-out");
+        }
+
         $scope.initJQuery = function() {
             $(function() {
                 var limit_height = $(document).height() - 240;
@@ -415,7 +434,6 @@ angular
                         }
                     })
                 });
-
             });
 
         }
@@ -507,6 +525,7 @@ angular
         });
 
         setTimeout(function() {
+            var container_width = $("#container").width();
             $('#carousel').css('padding-left', 0);
             $('#carousel').css('padding-right', 0);
             $('#carousel').css('left', '0px');
@@ -515,12 +534,8 @@ angular
             $('#carousel img').each(function(i, obj) {
                 sumImagesWidth = sumImagesWidth + $(obj).width();
             });
-            if (sumImagesWidth < 800) {
-                $('#carousel').css('padding-left', ((800 - sumImagesWidth) / 2));
-            } else {
-                console.log(sumImagesWidth);
-                $('#carousel').css('left', '30px');
+            if (sumImagesWidth < container_width) {
+                $('#carousel').css('padding-left', ((container_width - sumImagesWidth) / 2) - 15);
             }
-            console.log($('#carousel').css('background-color'));
         }, 500);
     });

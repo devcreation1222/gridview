@@ -1,9 +1,9 @@
-<div id="loader-wrapper">
+<div id="loader-wrapper" ng-click="seperate();">
     <div class="loader-section section-left">
-        <h1 class="font-left">ARTI</h1>
+        <img class="logo-left" src="./pages/logo-left-1.png" />
     </div>
     <div class="loader-section section-right ">
-        <h1 class="font-right">FACT</h1>
+        <img class="logo-right" src="./pages/logo-right-1.png" />
     </div>
 
 </div>
@@ -21,50 +21,15 @@
 </div>
 
 <style>
-    .loader-section.section-left .font-left {
+    .loader-section.section-left .logo-left {
         position: relative;
         top: 50%;
-        left: 77.5%;
-        font-size: 64px;
-        letter-spacing: 10px;
-        color: #222;
         transform: translateY(-50%)
     }
     
-    .loader-section.section-right .font-right {
+    .loader-section.section-right .logo-right {
         position: relative;
         top: 50%;
-        font-size: 64px;
-        letter-spacing: 10px;
-        color: #222;
         transform: translateY(-50%)
-    }
-    
-    @media(max-width: 995px) {
-        .loader-section.section-left .font-left {
-            top: 50%;
-            left: 65%;
-            font-size: 44px;
-            letter-spacing: 6px;
-        }
-        .loader-section.section-right .font-right {
-            top: 50%;
-            font-size: 44px;
-            letter-spacing: 6px;
-        }
-    }
-    
-    @media(max-width: 600px) {
-        .loader-section.section-left .font-left {
-            top: 50%;
-            left: 50%;
-            font-size: 32px;
-            letter-spacing: 6px;
-        }
-        .loader-section.section-right .font-right {
-            top: 50%;
-            font-size: 32px;
-            letter-spacing: 6px;
-        }
     }
 </style>

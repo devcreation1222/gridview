@@ -87,6 +87,10 @@ md-sidenav,
     text-transform: uppercase !important;
 }
 
+md-sidenav>md-content {
+    height: 100vh;
+}
+
 md-list-item .md-no-style.md-button,
 md-list-item.md-no-proxy.md-button {
     font-weight: 400;
@@ -366,20 +370,16 @@ md-sidenav {
 
 .p-images {
     max-width: 50%;
-    height: 100%;
-}
-
-.p-images .image-scroll {
     height: 100vh;
-    padding: 50px 17px 50px 50px;
-    overflow-y: auto;
+    padding: 50px;
+    overflow-y: scroll;
     overflow-x: hidden;
 }
 
 .p-detail {
     max-width: 50%;
-    height: 100vh;
-    position: fixed;
+    height: 85vh;
+    position: absolute;
     left: 62%;
     padding: 50px;
     overflow-y: scroll;
@@ -436,7 +436,7 @@ md-sidenav {
         font-size: 13px;
         font-weight: 500;
     }
-    .p-images .image-scroll {
+    .p-images {
         padding: 50px 10px 10px 10px
     }
     .p-detail {
