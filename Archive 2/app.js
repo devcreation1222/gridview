@@ -67,7 +67,7 @@ angular
         $scope.toggleLeft = buildDelayedToggler('left');
         $scope.filterLeft = buildToggler('filter-left');
         $rootScope.isOpen = false;
-        $rootScope.isColOpen = false;
+        $scope.isColOpen = false;
 
         function debounce(func, wait, context) {
             var timer;
@@ -105,7 +105,7 @@ angular
         }
 
         $scope.colToggle = function() {
-            $rootScope.isColOpen = !$rootScope.isColOpen;
+            $scope.isColOpen = !$scope.isColOpen;
         }
 
         $scope.close = function() {
@@ -481,9 +481,7 @@ angular
             }
         }
     })
-    .controller('HomeCtrl', function($scope, $rootScope, $window) {
-        $rootScope.isOpen = false;
-        $rootScope.isColOpen = false;
+    .controller('HomeCtrl', function($scope, $window) {
         $scope.seperate = function() {
             $(".loader-section.section-left").css("transform", "translateX(-100%)");
             $(".loader-section.section-left").css("-webkit-transform", "translateX(-100%)");
@@ -507,8 +505,7 @@ angular
             }, 1000);
         }
     })
-    .controller('ProductCtrl', function($scope, $rootScope, $http, productId) {
-        $rootScope.isColOpen = false;
+    .controller('ProductCtrl', function($scope, $http, productId) {
         var api_url = "api/getProductDetail.php";
         var fd = new FormData();
         fd.append('id', productId);
@@ -560,9 +557,7 @@ angular
     })
     .controller('AboutCtrl', function($rootScope) {
         $rootScope.isOpen = false;
-        $rootScope.isColOpen = false;
     })
     .controller('ContactCtrl', function($rootScope) {
         $rootScope.isOpen = false;
-        $rootScope.isColOpen = false;
     });

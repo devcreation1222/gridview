@@ -1,0 +1,477 @@
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('assets/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.eot');
+    src: url('assets/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.eot?#iefix') format('embedded-opentype'), url('assets/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.woff2') format('woff2'), url('assets/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.woff') format('woff'), url('assets/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.ttf') format('truetype'), url('assets/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.svg#proxima_nova_altregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* pt-mono-regular - latin */
+
+@font-face {
+    font-family: 'PT Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: url('assets/fonts/pt-mono-v5-latin-regular.eot');
+    /* IE9 Compat Modes */
+    src: local('PT Mono'), local('PTMono-Regular'), url('assets/fonts/pt-mono-v5-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('assets/fonts/pt-mono-v5-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('assets/fonts/pt-mono-v5-latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('assets/fonts/pt-mono-v5-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('assets/fonts/pt-mono-v5-latin-regular.svg#PTMono') format('svg');
+    /* Legacy iOS */
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Proxima Nova';
+}
+
+p {
+    font-family: 'Proxima Nova';
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.75em;
+}
+
+.gridListdemoBasicUsage md-grid-list {
+    margin: 8px;
+}
+
+.gridListdemoBasicUsage .gray {
+    background: #f5f5f5;
+}
+
+.gridListdemoBasicUsage .green {
+    background: #b9f6ca;
+}
+
+.gridListdemoBasicUsage .yellow {
+    background: #ffff8d;
+}
+
+.gridListdemoBasicUsage .blue {
+    background: #84ffff;
+}
+
+.gridListdemoBasicUsage .purple {
+    background: #b388ff;
+}
+
+.gridListdemoBasicUsage .red {
+    background: #ff8a80;
+}
+
+#main-container {
+    min-height: 100vh;
+}
+
+md-sidenav-container,
+md-sidenav>md-content,
+md-sidenav,
+.md-toolbar-tools {
+    font-weight: 400;
+    background: lightgray;
+    color: #242628;
+    text-align: center;
+    text-transform: uppercase !important;
+}
+
+md-sidenav>md-content {
+    height: 100vh;
+}
+
+md-list-item .md-no-style.md-button,
+md-list-item.md-no-proxy.md-button {
+    font-weight: 400;
+    text-transform: uppercase !important;
+}
+
+.md-button {
+    margin: 0px !important;
+}
+
+md-list-item .md-no-style.md-button:hover,
+md-list-item.md-no-proxy.md-button:hover,
+md-list-item .md-no-style.md-button:focus,
+md-list-item.md-no-proxy.md-button:focus {
+    color: #ff3c00 !important;
+}
+
+md-sidenav ul li {
+    padding: 10px 0;
+    padding-left: 10px;
+    text-align: left;
+}
+
+md-sidenav ul li:hover {
+    cursor: pointer;
+}
+
+md-sidenav ul li:focus {
+    outline: 0;
+    color: #ff3c00;
+}
+
+md-sidenav>md-content .md-icon-button {
+    position: absolute;
+    right: 0px;
+    display: none;
+}
+
+md-list-item .md-list-item-inner>.md-list-item-inner>p,
+md-list-item .md-list-item-inner>p,
+md-list-item>.md-list-item-inner>p,
+md-list-item>p {
+    font-weight: 400;
+    letter-spacing: 3px;
+}
+
+.main-title {
+    margin-top: 50px;
+    letter-spacing: 8px;
+}
+
+.menu-toggle-list {
+    max-height: 0px;
+    overflow: hidden;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in;
+    padding: 0;
+    font-size: 11px;
+}
+
+.toggle-active {
+    height: auto;
+    max-height: 1000px;
+}
+
+.md-button-toggle .md-toggle-icon {
+    background-size: 100% auto;
+    display: inline-block;
+    margin: auto 0 auto auto;
+    width: 15px;
+    color: darkgray;
+    transition: transform .3s ease-in-out;
+    -webkit-transition: -webkit-transform .3s ease-in-out;
+}
+
+md-checkbox {
+    margin: 0;
+}
+
+md-checkbox .md-label {
+    margin-left: 22px;
+}
+
+md-checkbox .md-icon {
+    border-color: black;
+}
+
+md-checkbox.md-checked .md-icon {
+    background: inherit;
+}
+
+md-checkbox.md-checked .md-icon:after {
+    border-color: black;
+}
+
+
+/* .md-button-toggle .md-toggle-icon.toggled {
+    transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
+} */
+
+.item,
+.item_hide {
+    border: solid 1px #2e2e2e;
+    overflow: hidden;
+    background: url('assets/img/loading.gif') no-repeat center center;
+    background-size: contain;
+    transition: transform .2s;
+    position: relative;
+    -webkit-transition: transform .2s;
+    -moz-transition: transform .2s;
+    -ms-transition: transform .2s;
+    -o-transition: transform .2s;
+}
+
+.item_hide {
+    width: 240px;
+    height: 240px;
+    /* width: 160px;
+    height: 160px; */
+    cursor: pointer;
+}
+
+.zoom {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    z-index: 99;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.item {
+    z-index: 98;
+    /* width: 80px;
+    height: 80px; */
+    width: 120px;
+    height: 120px;
+}
+
+.item:hover {
+    /* position: relative; */
+    /* transform: scale(2.2);
+    -webkit-transform: scale(2.2);
+    -moz-transform: scale(2.2);
+    -ms-transform: scale(2.2);
+    -o-transform: scale(2.2);
+    z-index: 9999;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer; */
+}
+
+.item:hover .item_title {
+    display: block;
+}
+
+.item img,
+.item_hide img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.display-none {
+    display: none;
+}
+
+.item_title {
+    font-size: 10px;
+    width: 100%;
+    height: 30px;
+    line-height: 15px;
+    overflow: hidden;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.5);
+    color: #2e2e2e;
+    position: absolute;
+    display: none;
+    top: 50px;
+}
+
+.filter-area {
+    background: black;
+    color: white;
+    width: 600px;
+    margin-left: -600px;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in;
+}
+
+.filter-area.toggle-active {
+    margin-left: 0px;
+}
+
+.filter-area ul {
+    list-style: none;
+}
+
+.filter-area .main-cate {
+    margin-top: 30px;
+}
+
+.main-cate hr {
+    width: 90%;
+    margin-left: 0px;
+}
+
+.filter-area .sub-cate {
+    margin-top: 10px;
+    padding-left: 20px
+}
+
+.sub-cate md-checkbox {
+    margin-top: 5px;
+}
+
+.sub-cate-desktop {
+    display: block;
+}
+
+.sub-cate-mobile {
+    display: none;
+}
+
+.item-area {
+    width: 100%;
+    /* position: absolute; */
+    right: 0;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in;
+}
+
+.item-area.toggle-active {
+    width: calc(100% - 600px);
+}
+
+md-sidenav-container {
+    z-index: 999;
+}
+
+md-checkbox.md-checked .md-icon:after {
+    left: 4.67px;
+    top: -0.78px;
+}
+
+md-checkbox .md-icon {
+    width: 15px;
+    height: 15px;
+}
+
+md-sidenav {
+    width: 400px;
+}
+
+.detail-mobile {
+    display: none;
+}
+
+.p-images {
+    max-width: 50%;
+    height: 100vh;
+    padding: 50px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.p-detail {
+    max-width: 50%;
+    height: 85vh;
+    position: absolute;
+    left: 62%;
+    padding: 50px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.p-detail h1 {
+    font-size: 1.3em;
+}
+
+.p-paragraph {
+    white-space: pre-line;
+}
+
+@media (max-width: 959px) {
+    .p-detail {
+        left: 50%;
+        padding-right: 10px;
+    }
+    .item-area {
+        margin-top: 60px;
+    }
+    .md-sidenav-left,
+    md-sidenav {
+        position: fixed;
+    }
+    md-sidenav>md-content .md-icon-button {
+        display: block;
+    }
+    .sub-cate-desktop {
+        display: none;
+    }
+    .sub-cate-mobile {
+        display: block;
+    }
+    .menu-toggle-list {
+        font-size: 9px;
+    }
+    md-icon {
+        color: #242628 !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .detail-desktop {
+        display: none;
+    }
+    .detail-mobile {
+        display: block;
+    }
+    .detail-mobile p {
+        font-family: 'Proxima Nova' !important;
+        line-height: 1.75em;
+        font-size: 13px;
+        font-weight: 500;
+    }
+    .p-images {
+        padding: 50px 10px 10px 10px
+    }
+    .p-detail {
+        left: 50%;
+        padding: 50px 10px 10px 0px;
+    }
+    /* 2018-07-19 */
+    .item_hide {
+        display: none;
+    }
+}
+
+.p-images img {
+    /* width: calc(100% - 100px); */
+    width: 100%;
+    margin: 20px 0;
+}
+
+md-backdrop.md-sidenav-backdrop {
+    z-index: 998;
+    position: fixed;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: white;
+}

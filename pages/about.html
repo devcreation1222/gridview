@@ -1,24 +1,30 @@
 <div class="main-content">
     <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-5 content">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 content">
             <div class="description">
-                <p>Artifact New York is a rental service that caters to designer fashion connoisseurs, entertainers, celebrities, actors/actresses, models, and designers. Combining selectively curated collections, Artifact New York is a unique addition to
-                    the current fashion landscape. Artifact New York represents the tastes of individuals who commonly share the passion of clothing and the story they tell. Our goal is to provide people access to historically important garments and to
-                    further discussion surrounding culturally relevant designers.</p>
-                <p>Many of the pieces in the archive are hard to source, which is why it has taken years of research, patience, and collecting to create. Each individual garment was sourced from places throughout the world. Not only do these garments tell
-                    narratives about contemporary fashion’s trajectory, they all contain highly individualized stories because they have all been pre-owned.</p>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <p>Artifact New York is a rental service that caters to designer fashion connoisseurs, entertainers, celebrities, actors/actresses, models, and designers. Combining selectively curated collections, Artifact New York is a unique addition
+                            to the current fashion landscape. Artifact New York represents the tastes of individuals who commonly share the passion of clothing and the story they tell. Our goal is to provide people access to historically important garments
+                            and to further discussion surrounding culturally relevant designers.<br>Many of the pieces in the archive are hard to source, which is why it has taken years of research, patience, and collecting to create. Each individual
+                            garment was sourced from places throughout the world. Not only do these garments tell narratives about contemporary fashion’s trajectory, they all contain highly individualized stories because they have all been pre-owned.</p>
+                    </div>
+                    <div class="col-xs-4">
+                        <img src="./assets/img/chair-man-2.png" class="img-responsive" width="329" height="609" />
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 
 <style>
     .main-content {
-        position: fixed;
         height: 100%;
-        background-image: linear-gradient( rgba(196, 196, 196, 0.45), rgba(196, 196, 196, 0.45)), url('./assets/img/background.jpg');
+        background-image: linear-gradient( rgba(196, 196, 196, 0.45), rgba(196, 196, 196, 0.45));
         background-repeat: no-repeat;
         background-position: right center;
         background-size: cover;
@@ -27,64 +33,29 @@
         text-align: left;
     }
     
-    .main-content .row {
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-    
-    .main-content .description,
-    .main-content .nav-link {
+    .main-content .description {
         padding-top: 20px;
     }
     
-    .main-content h1,
-    .main-content .nav-link {
-        text-transform: uppercase;
-        letter-spacing: .5em;
+    .description .row {
+        transform: translateY(50%);
     }
     
-    s .content p {
+    .content p {
         line-height: 1.75em;
         letter-spacing: .03em;
         color: #222;
     }
     
-    .content .nav-link {
-        padding-bottom: 25px;
-    }
-    
-    .nav-link .social {
-        padding-left: 20px;
-    }
-    
-    .nav-link a {
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: .5em;
-        color: #222;
-        line-height: 1em;
-    }
-    
-    .nav-link a:hover {
-        text-decoration: none;
-        color: gray;
-    }
-    
-    .nav-link .instagram {
-        width: 28px;
-        height: 28px;
-        position: relative;
-        transform: translateY(30%);
-        border-radius: 50%;
-    }
-    
     @media(max-width: 600px) {
         .main-content {
-            padding: 20px;
+            padding: 100px 20px 20px 20px;
         }
-        .content h1 {
-            font-size: 34px;
+        .description .row {
+            transform: unset;
+        }
+        .description .row img {
+            transform: translateY(50%);
         }
     }
 </style>

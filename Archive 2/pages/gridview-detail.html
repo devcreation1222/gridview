@@ -1,0 +1,25 @@
+<div layout="row">
+    <div class="p-images">
+        <img src="{{image.trim()}}" alt="" ng-repeat="image in itemImages">
+    </div>
+    <div class="p-detail" id="p-detail">
+        <!-- <a href="" ng-click="backToList();" style="float: right;">back to list</a> -->
+        <h1>{{curProduct.title}}</h1>
+        <p>
+            <font ng-show="curProduct.sub['size'] && curProduct.vintage==1"><strong>Measurement:</strong> {{curProduct.sub['size']}}</font>
+        </p>
+        <p>
+            <font ng-show="curProduct.sub['size'] && curProduct.vintage==0"><strong>Size:</strong> {{curProduct.sub['size']}}</font>
+        </p>
+        <p>
+            <font ng-show="curProduct.sub['material'] && curProduct.vintage==1"><strong>Year:</strong> {{curProduct.sub['material']}}</font>
+        </p>
+        <p>
+            <font ng-show="curProduct.sub['material'] && curProduct.vintage==0"><strong>Material:</strong> {{curProduct.sub['material']}}</font>
+        </p>
+        <p>
+            <font class="p-paragraph" ng-repeat="(key, value) in curProduct.sub" ng-show="key!='material' && key!='size'">{{value}}</font>
+        </p>
+        <!-- <strong>{{key}}</strong> -->
+    </div>
+</div>
