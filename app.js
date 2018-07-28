@@ -29,16 +29,23 @@ angular
             }
         }
 
+        // var collectionState = {
+        //     name: 'collection',
+        //     url: '/collection/:colNum',
+        //     templateUrl: 'pages/collection.html',
+        //     controller: 'CollectionCtrl',
+        //     resolve: {
+        //         colNum: function($transition$) {
+        //             return $transition$.params().colNum;
+        //         }
+        //     }
+        // }
+
         var collectionState = {
             name: 'collection',
-            url: '/collection/:colNum',
+            url: '/collection',
             templateUrl: 'pages/collection.html',
-            controller: 'CollectionCtrl',
-            resolve: {
-                colNum: function($transition$) {
-                    return $transition$.params().colNum;
-                }
-            }
+            controller: 'CollectionCtrl'
         }
 
         var aboutState = {
@@ -67,7 +74,7 @@ angular
         $scope.toggleLeft = buildDelayedToggler('left');
         $scope.filterLeft = buildToggler('filter-left');
         $rootScope.isOpen = false;
-        $rootScope.isColOpen = false;
+        // $rootScope.isColOpen = false;
 
         function debounce(func, wait, context) {
             var timer;
@@ -104,9 +111,9 @@ angular
             $rootScope.isOpen = !$rootScope.isOpen;
         }
 
-        $scope.colToggle = function() {
-            $rootScope.isColOpen = !$rootScope.isColOpen;
-        }
+        // $scope.colToggle = function() {
+        //     $rootScope.isColOpen = !$rootScope.isColOpen;
+        // }
 
         $scope.close = function() {
             $mdSidenav('left').close();
@@ -432,23 +439,23 @@ angular
         $scope.initJQuery();
 
         // collections view
-        $scope.col_nums = [];
+        // $scope.col_nums = [];
 
-        $timeout(function() {
-            var api_url = "api/getCollectionNum.php";
+        // $timeout(function() {
+        //     var api_url = "api/getCollectionNum.php";
 
-            var fd = new FormData();
-            fd.append('action', 'get');
-            $http.get(api_url, fd, {
-                transformRequest: angular.identity,
-                headers: { 'Content-Type': undefined }
-            }).success(function(data) {
-                $scope.col_nums = data;
-            }).error(function(err) {
-                console.log(err);
-            });
+        //     var fd = new FormData();
+        //     fd.append('action', 'get');
+        //     $http.get(api_url, fd, {
+        //         transformRequest: angular.identity,
+        //         headers: { 'Content-Type': undefined }
+        //     }).success(function(data) {
+        //         $scope.col_nums = data;
+        //     }).error(function(err) {
+        //         console.log(err);
+        //     });
 
-        }.bind(this), 100);
+        // }.bind(this), 100);
 
         // contact us
         $scope.submitForm = function(isValid, form) {
@@ -480,10 +487,11 @@ angular
                 });
             }
         }
+
     })
     .controller('HomeCtrl', function($scope, $rootScope, $window) {
         $rootScope.isOpen = false;
-        $rootScope.isColOpen = false;
+        // $rootScope.isColOpen = false;
         $scope.seperate = function() {
             $(".loader-section.section-left").css("transform", "translateX(-100%)");
             $(".loader-section.section-left").css("-webkit-transform", "translateX(-100%)");
@@ -508,7 +516,7 @@ angular
         }
     })
     .controller('ProductCtrl', function($scope, $rootScope, $http, productId) {
-        $rootScope.isColOpen = false;
+        // $rootScope.isColOpen = false;
         var api_url = "api/getProductDetail.php";
         var fd = new FormData();
         fd.append('id', productId);
@@ -525,11 +533,12 @@ angular
             console.log(err);
         });
     })
-    .controller('CollectionCtrl', function($scope, $rootScope, $http, colNum) {
+    .controller('CollectionCtrl', function($scope, $rootScope, $http) {
         $rootScope.isOpen = false;
         $scope.collection = { imagePaths: [], description: '' };
 
-        var api_url = "api/collection.php?col_num=" + colNum;
+        // var api_url = "api/collection.php?col_num" + colNum;
+        var api_url = "api/collection.php?col_num=1";
 
         var fd = new FormData();
         fd.append('action', 'get');
@@ -560,9 +569,9 @@ angular
     })
     .controller('AboutCtrl', function($rootScope) {
         $rootScope.isOpen = false;
-        $rootScope.isColOpen = false;
+        // $rootScope.isColOpen = false;
     })
     .controller('ContactCtrl', function($rootScope) {
         $rootScope.isOpen = false;
-        $rootScope.isColOpen = false;
+        // $rootScope.isColOpen = false;
     });

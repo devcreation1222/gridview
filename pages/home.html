@@ -1,13 +1,21 @@
 <div id="loader-wrapper" ng-click="seperate();">
     <div class="loader-section section-left">
-        <img class="logo-left" src="./logo-left-1.png" />
+        <img class="logo-left img-responsive" src="./assets/img/logo-left-new.png" width="1098" height="300" />
     </div>
     <div class="loader-section section-right">
-        <img class="logo-right" src="./logo-right-1.png" />
+        <img class="logo-right img-responsive" src="./assets/img/logo-right-new.png" width="1098" height="300" />
     </div>
 </div>
 
 <style>
+    .loader-section.section-left {
+        padding-left: 160px;
+    }
+    
+    .loader-section.section-right {
+        padding-right: 160px;
+    }
+    
     @media(max-width: 600px) {
         #loader-wrapper {
             width: 100%;
@@ -15,6 +23,12 @@
             position: unset;
             top: 0;
             left: 0;
+        }
+        .loader-section.section-left {
+            padding-left: 50px;
+        }
+        .loader-section.section-right {
+            padding-right: 50px;
         }
     }
     
