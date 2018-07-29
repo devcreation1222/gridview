@@ -67,14 +67,14 @@
                     <div style="padding-top: 100px; ">
                         <md-list-item ui-sref="home " ui-sref-active="active ">
                         </md-list-item>
-                        <md-list-item ng-click="gotoMain(); " ui-sref="gridview ">
+                        <md-list-item ng-click="gotoMain(); " ui-sref="gridview " ui-sref-active="active ">
                             <!-- <p>Main</p> -->
                             <h5>Main</h5>
                         </md-list-item>
-                        <md-list-item ui-sref="contact ">
+                        <md-list-item ui-sref="contact " ui-sref-active="active ">
                             <h5>Contact</h5>
                         </md-list-item>
-                        <md-list-item ui-sref="about">
+                        <md-list-item ui-sref="about" ui-sref-active="active ">
                             <h5>About</h5>
                         </md-list-item>
                         <md-list-item ng-click="toggle() ">
@@ -107,7 +107,7 @@
                             <h5>Collections</h5>
                         </md-list-item>
                         <ul ng-show="isColOpen " class="menu-toggle-list " ng-class="{ 'toggle-active': isColOpen} " style="padding-left: 30px; ">
-                            <li ng-repeat="col_num in col_nums " ui-sref="collection({colNum: col_num.col_num}) ">
+                            <li ng-repeat="col_num in col_nums " ui-sref="collection({colNum: col_num.col_num}) " ui-sref-active="active ">
                                 <h5>{{col_num.col_num}}</h5>
                             </li>
                         </ul>

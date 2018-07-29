@@ -357,6 +357,7 @@ angular
             $scope.backToList();
             $rootScope.isOpen = false;
             $rootScope.isColOpen = false;
+            $mdSidenav('left').close();
         }
 
         $scope.initJQuery = function() {

@@ -108,6 +108,14 @@ md-list-item.md-no-proxy.md-button:focus {
     color: #ff3c00 !important;
 }
 
+md-list-item.active {
+    color: #ff3c00 !important;
+}
+
+ul.menu-toggle-list.toggle-active>li.active {
+    color: #ff3c00 !important;
+}
+
 md-sidenav ul li {
     padding: 10px 0;
     padding-left: 10px;
