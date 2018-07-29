@@ -499,12 +499,12 @@ angular
             $(".loader-section.section-right").css("transform", "translateX(100%)");
             $(".loader-section.section-right").css("-webkit-transition", "all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000)");
             $(".loader-section.section-right").css("transition", "all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000)");
-            $("#loader-wrapper").css("visibility", "hidden");
-            $("#loader-wrapper").css("-webkit-transform", "translateY(-100%)");
-            $("#loader-wrapper").css("-ms-transform", "translateY(-100%)");
-            $("#loader-wrapper").css("transform", "translateY(-100%)");
-            $("#loader-wrapper").css("-webkit-transition", "all 0.3s 1s ease-out");
-            $("#loader-wrapper").css("transition", "all 0.3s 1s ease-out");
+            // $("#loader-wrapper").css("visibility", "hidden");
+            // $("#loader-wrapper").css("-webkit-transform", "translateY(-100%)");
+            // $("#loader-wrapper").css("-ms-transform", "translateY(-100%)");
+            // $("#loader-wrapper").css("transform", "translateY(-100%)");
+            // $("#loader-wrapper").css("-webkit-transition", "all 0.3s 1s ease-out");
+            // $("#loader-wrapper").css("transition", "all 0.3s 1s ease-out");
 
             setTimeout(function() {
                 $window.location.href = "/main";
