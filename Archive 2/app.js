@@ -14,7 +14,8 @@ angular
         var gridviewState = {
             name: 'gridview',
             url: '/main',
-            templateUrl: 'pages/gridview.html'
+            templateUrl: 'pages/gridview.html',
+            controller: 'MainCtrl'
         }
 
         var detailState = {
@@ -354,6 +355,8 @@ angular
 
         $scope.gotoMain = function() {
             $scope.backToList();
+            $rootScope.isOpen = false;
+            $rootScope.isColOpen = false;
         }
 
         $scope.initJQuery = function() {
@@ -481,7 +484,9 @@ angular
             }
         }
     })
-    .controller('HomeCtrl', function($scope, $window) {
+    .controller('HomeCtrl', function($scope, $rootScope, $window) {
+        $rootScope.isOpen = false;
+        $rootScope.isColOpen = false;
         $scope.seperate = function() {
             $(".loader-section.section-left").css("transform", "translateX(-100%)");
             $(".loader-section.section-left").css("-webkit-transform", "translateX(-100%)");
@@ -505,7 +510,12 @@ angular
             }, 1000);
         }
     })
-    .controller('ProductCtrl', function($scope, $http, productId) {
+    .controller('MainCtrl', function($scope, $rootScope) {
+        $rootScope.isOpen = false;
+        $rootScope.isColOpen = false;
+    })
+    .controller('ProductCtrl', function($scope, $rootScope, $http, productId) {
+        $rootScope.isColOpen = false;
         var api_url = "api/getProductDetail.php";
         var fd = new FormData();
         fd.append('id', productId);
@@ -557,7 +567,9 @@ angular
     })
     .controller('AboutCtrl', function($rootScope) {
         $rootScope.isOpen = false;
+        $rootScope.isColOpen = false;
     })
     .controller('ContactCtrl', function($rootScope) {
         $rootScope.isOpen = false;
+        $rootScope.isColOpen = false;
     });

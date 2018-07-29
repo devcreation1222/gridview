@@ -3,6 +3,7 @@
 
 <head>
     <base href="/">
+    <!-- <base href="/grid/"> -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -102,14 +103,14 @@
                                 </div>
                             </li>
                         </ul>
-                        <md-list-item ui-sref="collection">
+                        <md-list-item ng-click="colToggle() ">
                             <h5>Collections</h5>
                         </md-list-item>
-                        <!-- <ul ng-show="isColOpen " class="menu-toggle-list " ng-class="{ 'toggle-active': isColOpen} " style="padding-left: 30px; ">
+                        <ul ng-show="isColOpen " class="menu-toggle-list " ng-class="{ 'toggle-active': isColOpen} " style="padding-left: 30px; ">
                             <li ng-repeat="col_num in col_nums " ui-sref="collection({colNum: col_num.col_num}) ">
                                 <h5>{{col_num.col_num}}</h5>
                             </li>
-                        </ul> -->
+                        </ul>
                     </div>
                 </md-content>
             </md-sidenav>

@@ -1,23 +1,25 @@
 <div class="main-content">
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-8 content">
-            <div class="description">
-                <div class="row">
-                    <div class="col-xs-8">
-                        <p>Artifact New York is a rental service that caters to designer fashion connoisseurs, entertainers, celebrities, actors/actresses, models, and designers. Combining selectively curated collections, Artifact New York is a unique addition
-                            to the current fashion landscape. Artifact New York represents the tastes of individuals who commonly share the passion of clothing and the story they tell. Our goal is to provide people access to historically important garments
-                            and to further discussion surrounding culturally relevant designers.<br>Many of the pieces in the archive are hard to source, which is why it has taken years of research, patience, and collecting to create. Each individual
-                            garment was sourced from places throughout the world. Not only do these garments tell narratives about contemporary fashion’s trajectory, they all contain highly individualized stories because they have all been pre-owned.</p>
-                    </div>
-                    <div class="col-xs-4">
-                        <img src="./assets/img/chair-man-2.png" class="img-responsive" width="329" height="609" />
-                    </div>
+        <div class="col-md-6 col-xs-12 content">
+            <div class="outer">
+                <div class="middle">
+                    <img src="./assets/img/chair-man-2.png" class="img-responsive display-none" style="float: right;" />
+                    <p>Artifact New York is a rental service that caters to designer fashion connoisseurs, entertainers, celebrities, actors/actresses, models, and designers. Combining selectively curated collections, Artifact New York is a unique addition
+                        to the current fashion landscape. Artifact New York represents the tastes of individuals who commonly share the passion of clothing and the story they tell. Our goal is to provide people access to historically important garments
+                        and to further discussion surrounding culturally relevant designers.</p>
+                    <p>Many of the pieces in the archive are hard to source, which is why it has taken years of research, patience, and collecting to create. Each individual garment was sourced from places throughout the world. Not only do these garments
+                        tell narratives about contemporary fashion’s trajectory, they all contain highly individualized stories because they have all been pre-owned.</p>
                 </div>
-
             </div>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-4 content" style="text-align: right">
+            <div class="outer">
+                <div class="middle">
+                    <img src="./assets/img/chair-man-2.png" class="img-responsive display-block" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -33,29 +35,64 @@
         text-align: left;
     }
     
-    .main-content .description {
-        padding-top: 20px;
+    .content .outer {
+        height: 850px;
+        width: 100%;
     }
     
-    .description .row {
-        transform: translateY(50%);
+    .content .middle {
+        position: relative;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
     }
     
-    .content p {
+    .main-content .content p {
         line-height: 1.75em;
         letter-spacing: .03em;
         color: #222;
     }
     
+    .display-block {
+        display: block
+    }
+    
+    .display-none {
+        display: none;
+    }
+    
+    .content img {
+        height: 700px;
+    }
+    
+    .content p {
+        word-break: break-all;
+    }
+    
     @media(max-width: 600px) {
-        .main-content {
-            padding: 100px 20px 20px 20px;
+        .content .outer {
+            height: unset;
         }
-        .description .row {
+        .content .middle {
+            position: unset;
+            top: unset;
+            -webkit-transform: unset;
             transform: unset;
         }
-        .description .row img {
-            transform: translateY(50%);
+        .main-content {
+            padding: 100px 20px 40px 20px;
+        }
+        .display-block {
+            display: none;
+        }
+        .display-none {
+            display: block;
+        }
+        .main-content img {
+            width: 150px;
+        }
+        .content img {
+            height: unset;
         }
     }
 </style>

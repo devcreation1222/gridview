@@ -14,7 +14,8 @@ angular
         var gridviewState = {
             name: 'gridview',
             url: '/main',
-            templateUrl: 'pages/gridview.html'
+            templateUrl: 'pages/gridview.html',
+            controller: 'MainCtrl'
         }
 
         var detailState = {
@@ -29,23 +30,16 @@ angular
             }
         }
 
-        // var collectionState = {
-        //     name: 'collection',
-        //     url: '/collection/:colNum',
-        //     templateUrl: 'pages/collection.html',
-        //     controller: 'CollectionCtrl',
-        //     resolve: {
-        //         colNum: function($transition$) {
-        //             return $transition$.params().colNum;
-        //         }
-        //     }
-        // }
-
         var collectionState = {
             name: 'collection',
-            url: '/collection',
+            url: '/collection/:colNum',
             templateUrl: 'pages/collection.html',
-            controller: 'CollectionCtrl'
+            controller: 'CollectionCtrl',
+            resolve: {
+                colNum: function($transition$) {
+                    return $transition$.params().colNum;
+                }
+            }
         }
 
         var aboutState = {
@@ -74,7 +68,7 @@ angular
         $scope.toggleLeft = buildDelayedToggler('left');
         $scope.filterLeft = buildToggler('filter-left');
         $rootScope.isOpen = false;
-        // $rootScope.isColOpen = false;
+        $rootScope.isColOpen = false;
 
         function debounce(func, wait, context) {
             var timer;
@@ -111,9 +105,9 @@ angular
             $rootScope.isOpen = !$rootScope.isOpen;
         }
 
-        // $scope.colToggle = function() {
-        //     $rootScope.isColOpen = !$rootScope.isColOpen;
-        // }
+        $scope.colToggle = function() {
+            $rootScope.isColOpen = !$rootScope.isColOpen;
+        }
 
         $scope.close = function() {
             $mdSidenav('left').close();
@@ -361,6 +355,8 @@ angular
 
         $scope.gotoMain = function() {
             $scope.backToList();
+            $rootScope.isOpen = false;
+            $rootScope.isColOpen = false;
         }
 
         $scope.initJQuery = function() {
@@ -439,23 +435,23 @@ angular
         $scope.initJQuery();
 
         // collections view
-        // $scope.col_nums = [];
+        $scope.col_nums = [];
 
-        // $timeout(function() {
-        //     var api_url = "api/getCollectionNum.php";
+        $timeout(function() {
+            var api_url = "api/getCollectionNum.php";
 
-        //     var fd = new FormData();
-        //     fd.append('action', 'get');
-        //     $http.get(api_url, fd, {
-        //         transformRequest: angular.identity,
-        //         headers: { 'Content-Type': undefined }
-        //     }).success(function(data) {
-        //         $scope.col_nums = data;
-        //     }).error(function(err) {
-        //         console.log(err);
-        //     });
+            var fd = new FormData();
+            fd.append('action', 'get');
+            $http.get(api_url, fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).success(function(data) {
+                $scope.col_nums = data;
+            }).error(function(err) {
+                console.log(err);
+            });
 
-        // }.bind(this), 100);
+        }.bind(this), 100);
 
         // contact us
         $scope.submitForm = function(isValid, form) {
@@ -487,11 +483,11 @@ angular
                 });
             }
         }
-
     })
-    .controller('HomeCtrl', function($scope, $rootScope, $window) {
+    .controller('HomeCtrl', function($scope, $rootScope, $window, $mdSidenav) {
         $rootScope.isOpen = false;
-        // $rootScope.isColOpen = false;
+        $rootScope.isColOpen = false;
+        $mdSidenav('left').close();
         $scope.seperate = function() {
             $(".loader-section.section-left").css("transform", "translateX(-100%)");
             $(".loader-section.section-left").css("-webkit-transform", "translateX(-100%)");
@@ -515,8 +511,14 @@ angular
             }, 1000);
         }
     })
-    .controller('ProductCtrl', function($scope, $rootScope, $http, productId) {
-        // $rootScope.isColOpen = false;
+    .controller('MainCtrl', function($scope, $rootScope, $mdSidenav) {
+        $rootScope.isOpen = false;
+        $rootScope.isColOpen = false;
+        $mdSidenav('left').close();
+    })
+    .controller('ProductCtrl', function($scope, $rootScope, $http, $mdSidenav, productId) {
+        $rootScope.isColOpen = false;
+        $mdSidenav('left').close();
         var api_url = "api/getProductDetail.php";
         var fd = new FormData();
         fd.append('id', productId);
@@ -533,12 +535,12 @@ angular
             console.log(err);
         });
     })
-    .controller('CollectionCtrl', function($scope, $rootScope, $http) {
+    .controller('CollectionCtrl', function($scope, $rootScope, $http, $mdSidenav, colNum) {
         $rootScope.isOpen = false;
+        $mdSidenav('left').close();
         $scope.collection = { imagePaths: [], description: '' };
 
-        // var api_url = "api/collection.php?col_num" + colNum;
-        var api_url = "api/collection.php?col_num=1";
+        var api_url = "api/collection.php?col_num=" + colNum;
 
         var fd = new FormData();
         fd.append('action', 'get');
@@ -567,11 +569,13 @@ angular
             }
         }, 500);
     })
-    .controller('AboutCtrl', function($rootScope) {
+    .controller('AboutCtrl', function($rootScope, $mdSidenav) {
         $rootScope.isOpen = false;
-        // $rootScope.isColOpen = false;
+        $rootScope.isColOpen = false;
+        $mdSidenav('left').close();
     })
-    .controller('ContactCtrl', function($rootScope) {
+    .controller('ContactCtrl', function($rootScope, $mdSidenav) {
         $rootScope.isOpen = false;
-        // $rootScope.isColOpen = false;
+        $rootScope.isColOpen = false;
+        $mdSidenav('left').close();
     });
