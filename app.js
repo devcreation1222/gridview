@@ -320,12 +320,11 @@ angular
         $scope.displayItem = [];
 
         $timeout(function() {
-            this.rowCollection = [];
-            var api_url = "api/product.php";
+            var api_url = "api/getThumbnails.php";
+
             var fd = new FormData();
             fd.append('action', 'get');
-            var _this = this;
-            $http.post(api_url, fd, {
+            $http.get(api_url, fd, {
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             }).success(function(data) {
@@ -342,7 +341,6 @@ angular
             }).error(function(err) {
                 console.log(err);
             });
-
         }.bind(this), 100);
 
         $scope.showItem = false;
