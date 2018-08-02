@@ -4,7 +4,7 @@ include('db.php');
 
 $pid = isset($_GET['id']) ? $_GET['id'] : "";
 if(!$pid) {
-    header('location: ./index.php');
+    header('location: ./product.php');
 }
 
 $action = isset($_POST['action']) ? $_POST['action'] : '';
@@ -46,13 +46,13 @@ if($action == 'edit') {
         if($count == $num) {
             $plink = $upload_new_files.trim($_POST['val-productlink']);
             mysqli_query($link, "UPDATE `product` SET `title`='".$pname."',`category`='".$category."',`size`='".$psize."',`material`='".$pmaterial."',`description`='".$pdesc."',`image`='".$plink."' WHERE id='".$pid."'");
-            echo "<script>location.href='./index.php'</script>";
+            echo "<script>location.href='./product.php'</script>";
         }
     } else{
         $plink = trim($_POST['val-productlink']);
         // mysqli_query($link, "UPDATE `product` SET `title`='".$pname."',`category`='".$category."',`size`='".$psize."',`description`='".$pdesc."',`image`='".$plink."' WHERE id='".$pid."'");
         mysqli_query($link, "UPDATE `product` SET `title`='".$pname."',`category`='".$category."',`size`='".$psize."',`material`='".$pmaterial."',`description`='".$pdesc."',`image`='".$plink."' WHERE id='".$pid."'");
-        echo "<script>location.href='./index.php'</script>";
+        echo "<script>location.href='./product.php'</script>";
     }
 }
 

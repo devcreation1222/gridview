@@ -1,20 +1,31 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-include 'thumbnailGenerator.php';
+require 'image/vendor/autoload.php';
 
-set_time_limit(0);
-$tg = new thumbnailGenerator;
+use Intervention\Image\ImageManagerStatic as Image;
 
 $path = '/images';
-$files = scandir(getcwd() . $path);
+$files = preg_grep('~\.(jpeg|jpg|png)$~', scandir(getcwd() . $path));
+//print_r(sizeof($files)); exit;
+$i = 0;
 
-$i = 2;
+Image::configure(array('driver' => 'imagick'));
+    
 while ($i < sizeof($files)) {
-    $imagename = 'thumbnails/' . $files[$i];
+    $imagename = 'thumbnails/' . $files[$i+2];
+    
     if(file_exists($imagename)){
+        $i++;
        continue;
     } 
-    $tg->generate('images/' . $files[$i], 200, 250, 'thumbnails/' . $files[$i] );
+    
+    //echo 'images/' . $files[$i+2]; exit;
+    // and you are ready to go ...
+    $img = Image::make('images/' . $files[$i+2]);
+    
+    $img->resize(300, 375);
+    $img->save('thumbnails/' . $files[$i+2]);
+    //$tg->generate('images/' . $files[$i], 200, 250, 'thumbnails/' . $files[$i] );
     $i++;
 }
 

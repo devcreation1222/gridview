@@ -4,6 +4,13 @@ angular
 
         $urlRouterProvider.otherwise('/');
 
+        // var lockScreenState = {
+        //     name: 'lock-screen',
+        //     url: '/lock-screen',
+        //     templateUrl: 'pages/lock-screen.html',
+        //     controller: 'LockScreenCtrl'
+        // }
+
         var homeState = {
             name: 'home',
             url: '/',
@@ -56,6 +63,7 @@ angular
             controller: 'ContactCtrl'
         }
 
+        // $stateProvider.state(lockScreenState);
         $stateProvider.state(homeState);
         $stateProvider.state(gridviewState);
         $stateProvider.state(collectionState);
@@ -69,6 +77,7 @@ angular
         $scope.filterLeft = buildToggler('filter-left');
         $rootScope.isOpen = false;
         $rootScope.isColOpen = false;
+        $rootScope.passed = false;
 
         function debounce(func, wait, context) {
             var timer;
@@ -93,6 +102,21 @@ angular
                         $log.debug("toggle " + navID + " is done");
                     });
             }, 200);
+        }
+
+        $scope.setImgWidth = function(window_width) {
+            var real_width = 0;
+            if (window_width > 959) {
+                real_width = window_width - 400;
+            } else {
+                real_width = window_width;
+            }
+            var cnt_img = parseInt(real_width / 120);
+            var img_width = 120 + (real_width % 120) / cnt_img;
+            $(".item").css('width', img_width);
+            $(".item").css('height', img_width);
+            $(".item_hide").css('width', img_width);
+            $(".item_hide").css('height', img_width);
         }
 
         function buildToggler(componentId) {
@@ -319,9 +343,9 @@ angular
         $scope.products = [];
         $scope.displayItem = [];
 
+        // get gridview data
         $timeout(function() {
             var api_url = "api/getThumbnails.php";
-
             var fd = new FormData();
             fd.append('action', 'get');
             $http.get(api_url, fd, {
@@ -341,7 +365,7 @@ angular
             }).error(function(err) {
                 console.log(err);
             });
-        }.bind(this), 100);
+        }, 100)
 
         $scope.showItem = false;
         $scope.curProduct = [];
@@ -360,16 +384,22 @@ angular
 
         $scope.initJQuery = function() {
             $(function() {
-                var limit_height = $(document).height() - 240;
-                var limit_width = $(document).width() - 240;
+                var limit_height = $(document).height();
+                var limit_width = $(document).width();
                 var hide_elem_list = document.getElementsByClassName('item_hide');
                 $('.item').live('mouseover mouseout', function(event) {
                     var item_index = $('.item').index(this);
                     var hide_elem = hide_elem_list[item_index];
+                    if (!hide_elem) {
+                        $timeout(function() {
+                            $scope.setImgWidth($window.innerWidth);
+                        }, 0.01);
+                    }
                     var offset = $(this).offset();
                     var top = offset.top - $(window).scrollTop();
                     var left = offset.left;
                     if (event.type == 'mouseover') {
+                        $scope.setImgWidth($window.innerWidth);
                         hide_elem.classList.remove('display-none');
                         var off_top = top - 44;
                         if (off_top <= 0) {
@@ -385,27 +415,41 @@ angular
                         if (off_left >= limit_width) {
                             off_left = limit_width - 15;
                         }
-                        hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                        var real_width = 0;
+                        if ($window.innerWidth > 959) {
+                            real_width = $window.innerWidth - 400;
+                        } else {
+                            real_width = $window.innerWidth;
+                        }
+                        var cnt_img = parseInt(real_width / 120);
+                        if (!((item_index + 1) % cnt_img)) {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                        } else {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                        }
                         hide_elem.classList.add('zoom');
                         for (let index = 0; index < hide_elem_list.length; index++) {
                             if (index != item_index) {
                                 hide_elem_list[index].classList.remove('zoom');
                                 hide_elem_list[index].classList.remove('display-none');
                                 hide_elem_list[index].classList.add('display-none');
-                                document.getElementsByClassName('item')[index].removeAttribute("style");
+                                // document.getElementsByClassName('item')[index].removeAttribute("style");
+                                // $timeout(function() {
+                                //     $scope.setImgWidth($window.innerWidth);
+                                // }, 0.01);
                             }
                         }
                     }
-                    if (event.type == 'mouseout') {
-                        for (let index = 0; index < hide_elem_list.length; index++) {
-                            if (index != item_index) {
-                                hide_elem_list[index].classList.remove('zoom');
-                                hide_elem_list[index].classList.remove('display-none');
-                                hide_elem_list[index].classList.add('display-none');
-                                document.getElementsByClassName('item')[index].removeAttribute("style");
-                            }
-                        }
-                    }
+                    // if (event.type == 'mouseout') {
+                    //     for (let index = 0; index < hide_elem_list.length; index++) {
+                    //         if (index != item_index) {
+                    //             hide_elem_list[index].classList.remove('zoom');
+                    //             hide_elem_list[index].classList.remove('display-none');
+                    //             hide_elem_list[index].classList.add('display-none');
+                    //             document.getElementsByClassName('item')[index].removeAttribute("style");
+                    //         }
+                    //     }
+                    // }
 
                 });
 
@@ -435,55 +479,24 @@ angular
 
         // collections view
         $scope.col_nums = [];
+        var api_url = "api/getCollectionNum.php";
+
+        var fd = new FormData();
+        fd.append('action', 'get');
+        $http.get(api_url, fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function(data) {
+            $scope.col_nums = data;
+        }).error(function(err) {
+            console.log(err);
+        });
 
         $timeout(function() {
-            var api_url = "api/getCollectionNum.php";
-
-            var fd = new FormData();
-            fd.append('action', 'get');
-            $http.get(api_url, fd, {
-                transformRequest: angular.identity,
-                headers: { 'Content-Type': undefined }
-            }).success(function(data) {
-                $scope.col_nums = data;
-            }).error(function(err) {
-                console.log(err);
-            });
-
-        }.bind(this), 100);
-
-        // contact us
-        $scope.submitForm = function(isValid, form) {
-            $scope.submitted = true;
-            $scope.user = {}
-
-            if ($scope.submitted && isValid) {
-                $scope.user.firstName = form.firstName.$modelValue;
-                $scope.user.lastName = form.lastName.$modelValue;
-                $scope.user.email = form.email.$modelValue;
-                $scope.user.subject = form.subject.$modelValue;
-                $scope.user.message = form.message.$modelValue;
-
-                var fd = new FormData();
-                fd.append('first_name', $scope.user.firstName);
-                fd.append('last_name', $scope.user.lastName);
-                fd.append('email', $scope.user.email);
-                fd.append('subject', $scope.user.subject);
-                fd.append('message', $scope.user.message);
-
-                $http.post('api/contact.php', fd, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                }).success(function(data) {
-                    alert(data.message);
-                    $window.location.reload();
-                }).error(function(err) {
-                    console.log(err);
-                });
-            }
-        }
+            localStorage.removeItem('passed');
+        }, 3600000)
     })
-    .controller('HomeCtrl', function($scope, $rootScope, $window, $mdSidenav) {
+    .controller('HomeCtrl', function($scope, $rootScope, $window, $mdSidenav, $timeout) {
         $rootScope.isOpen = false;
         $rootScope.isColOpen = false;
         $mdSidenav('left').close();
@@ -505,15 +518,52 @@ angular
             // $("#loader-wrapper").css("-webkit-transition", "all 0.3s 1s ease-out");
             // $("#loader-wrapper").css("transition", "all 0.3s 1s ease-out");
 
-            setTimeout(function() {
+            $timeout(function() {
                 $window.location.href = "/main";
             }, 1000);
         }
     })
-    .controller('MainCtrl', function($scope, $rootScope, $mdSidenav) {
+    .controller('MainCtrl', function($scope, $rootScope, $mdSidenav, $window, $timeout) {
         $rootScope.isOpen = false;
         $rootScope.isColOpen = false;
         $mdSidenav('left').close();
+        $scope.passed = false;
+        const password = "password1";
+        $scope.unlockScreen = function(form) {
+            if ($scope.password == password) {
+                localStorage.setItem('passed', true);
+                $scope.passed = localStorage.getItem('passed');
+                $("#loader-wrapper").hide();
+            } else {
+                alert("Password does not match.");
+            }
+        }
+        $scope.passed = localStorage.getItem('passed');
+        if ($scope.passed) {
+            $("md-toolbar").show();
+        } else {
+            $("md-toolbar").hide();
+        }
+        $scope.setImgWidth = function(window_width) {
+            var real_width = 0;
+            if (window_width > 959) {
+                real_width = window_width - 400;
+            } else {
+                real_width = window_width;
+            }
+            var cnt_img = parseInt(real_width / 120);
+            var img_width = 120 + (real_width % 120) / cnt_img;
+            $(".item").css('width', img_width);
+            $(".item").css('height', img_width);
+        }
+        $timeout(function() {
+            $scope.setImgWidth($window.innerWidth);
+        }, 400);
+
+        $(window).resize(function() {
+            $scope.setImgWidth($window.innerWidth);
+        });
+
     })
     .controller('ProductCtrl', function($scope, $rootScope, $http, $mdSidenav, productId) {
         $rootScope.isColOpen = false;

@@ -39,13 +39,13 @@ if($action == 'add') {
         if($count == $num) {
             $plink = $upload_new_files.trim($_POST['val-productlink']);
             mysqli_query($link, "INSERT INTO `product`(`title`, `size`, `material`, `category`, `description`, `image`) VALUES ('".$pname."', '".$psize."', '".$pmaterial."', '".$category."', '".$pdesc."', '".$plink."')");
-            echo "<script>location.href='./index.php'</script>";
+            echo "<script>location.href='./product.php'</script>";
         }
     } else{
         $plink = trim($_POST['val-productlink']);
         // mysqli_query($link, "INSERT INTO `product`(`title`, `size`, `category`, `description`, `image`) VALUES ('".$pname."', '".$psize."', '".$category."', '".$pdesc."', '".$plink."')");
         mysqli_query($link, "INSERT INTO `product`(`title`, `size`, `material`, `category`, `description`, `image`) VALUES ('".$pname."', '".$psize."', '".$pmaterial."', '".$category."', '".$pdesc."', '".$plink."')");
-        echo "<script>location.href='./index.php'</script>";
+        echo "<script>location.href='./product.php'</script>";
     }
 
 }

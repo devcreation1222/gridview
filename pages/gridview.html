@@ -1,3 +1,19 @@
+<div id="loader-wrapper" ng-if="!passed">
+    <div style="position: relative; height: 100%;">
+        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            <form name="lockForm" class="lock-screen" ng-submit="unlockScreen(lockForm)" ng-controller="MainCtrl">
+                <div style="clear: both;">
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" ng-model="password" required />
+                    </div>
+                    <div class="btn-right">
+                        <button type="submit" class="btn btn-primary"><i class="material-icons">trending_flat</i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div layout="row">
     <div layout="row" flex layout-wrap class="item-area">
         <div ng-repeat="item in displayItem">
@@ -10,3 +26,53 @@
         </div>
     </div>
 </div>
+
+<style>
+    #loader-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        z-index: 1000;
+    }
+    
+    .lock-screen .form-group {
+        width: 200px;
+        float: left;
+    }
+    
+    .lock-screen .btn-right {
+        float: right;
+    }
+    
+    .lock-screen .form-control {
+        border-radius: unset;
+    }
+    
+    .lock-screen .btn {
+        background-color: #fff;
+        border-color: #fff;
+    }
+    
+    .lock-screen .btn:focus {
+        outline: 0;
+        border-radius: unset;
+        box-shadow: unset;
+    }
+    
+    .lock-screen .material-icons {
+        color: #000;
+    }
+    
+    #loader-wrapper .form-control {
+        font-size: 16px !important;
+    }
+    
+    @media (max-width: 600px) {
+        .lock-screen .form-group {
+            width: 135px;
+        }
+    }
+</style>

@@ -9,7 +9,7 @@
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="hide-menu">Product</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="product_new.php">New</a></li>
-                        <li><a href="index.php">List</a></li>
+                        <li><a href="product.php">List</a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-list-alt" aria-hidden="true"></i><span class="hide-menu">Category</span></a>

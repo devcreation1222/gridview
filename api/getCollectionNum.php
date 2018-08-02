@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 include('../adm/db.php');
 
-$sql = "SELECT col_num FROM collection";
+$sql = "SELECT col_num FROM collection ORDER BY id";
 $sql_result = mysqli_query($link, $sql);
 $col_nums = [];
 if ($sql_result) {

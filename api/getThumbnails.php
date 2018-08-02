@@ -3,7 +3,8 @@ header('Access-Control-Allow-Origin: *');
 include('../adm/db.php');
 
 $path = '/thumbnails';
-$files = scandir(getcwd() . $path);
+$files = preg_grep('~\.(jpeg|jpg|png)$~', scandir(getcwd() . $path));
+shuffle($files);
 $products = [];
 $i = 2;
 while ($i < sizeof($files)) {
