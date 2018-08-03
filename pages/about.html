@@ -1,10 +1,10 @@
 <div class="main-content">
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-6 col-xs-12 content">
+        <div class="col-md-6 col-xs-12 content" style="padding-bottom: 100px;">
             <div class="outer">
                 <div class="middle">
-                    <img src="./assets/img/chair-man-2.png" class="img-responsive display-none" style="float: right;" />
+                    <img src="./chair-man-2.png" class="img-responsive display-none" style="float: right;" />
                     <p>Artifact New York is a rental service that caters to designer fashion connoisseurs, entertainers, celebrities, actors/actresses, models, and designers. Combining selectively curated collections, Artifact New York is a unique addition
                         to the current fashion landscape. Artifact New York represents the tastes of individuals who commonly share the passion of clothing and the story they tell. Our goal is to provide people access to historically important garments
                         and to further discussion surrounding culturally relevant designers.</p>
@@ -16,7 +16,7 @@
         <div class="col-md-4 content" style="text-align: right">
             <div class="outer">
                 <div class="middle">
-                    <img src="./assets/img/chair-man-2.png" class="img-responsive display-block" />
+                    <img src="./chair-man-2.png" class="img-responsive display-block" />
                 </div>
             </div>
         </div>
@@ -71,16 +71,18 @@
     
     @media(max-width: 600px) {
         .content .outer {
-            height: unset;
+            position: relative;
+            height: 100vh;
         }
         .content .middle {
-            position: unset;
-            top: unset;
-            -webkit-transform: unset;
-            transform: unset;
+            max-height: 100vh;
+            position: relative;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
         }
         .main-content {
-            padding: 100px 20px 40px 20px;
+            padding: 0px 20px;
         }
         .display-block {
             display: none;

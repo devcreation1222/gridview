@@ -408,7 +408,10 @@ md-sidenav {
         padding-right: 10px;
     }
     .item-area {
-        margin-top: 60px;
+        padding-top: 56px;
+    }
+    md-sidenav>md-content {
+        height: 100%;
     }
     .md-sidenav-left,
     md-sidenav {

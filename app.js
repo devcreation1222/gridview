@@ -528,22 +528,30 @@ angular
         $rootScope.isColOpen = false;
         $mdSidenav('left').close();
         $scope.passed = false;
+        $("md-toolbar").hide();
         const password = "password1";
         $scope.unlockScreen = function(form) {
             if ($scope.password == password) {
                 localStorage.setItem('passed', true);
                 $scope.passed = localStorage.getItem('passed');
                 $("#loader-wrapper").hide();
+                if ($window.innerWidth < 960) {
+                    $("md-toolbar").show();
+                }
+                location.reload();
             } else {
                 alert("Password does not match.");
             }
         }
+
         $scope.passed = localStorage.getItem('passed');
+
         if ($scope.passed) {
-            $("md-toolbar").show();
-        } else {
-            $("md-toolbar").hide();
+            if ($window.innerWidth < 960) {
+                $("md-toolbar").show();
+            }
         }
+
         $scope.setImgWidth = function(window_width) {
             var real_width = 0;
             if (window_width > 959) {
@@ -558,7 +566,7 @@ angular
         }
         $timeout(function() {
             $scope.setImgWidth($window.innerWidth);
-        }, 400);
+        }, 1000);
 
         $(window).resize(function() {
             $scope.setImgWidth($window.innerWidth);
