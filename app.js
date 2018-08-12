@@ -4,13 +4,6 @@ angular
 
         $urlRouterProvider.otherwise('/');
 
-        // var lockScreenState = {
-        //     name: 'lock-screen',
-        //     url: '/lock-screen',
-        //     templateUrl: 'pages/lock-screen.html',
-        //     controller: 'LockScreenCtrl'
-        // }
-
         var homeState = {
             name: 'home',
             url: '/',
@@ -78,6 +71,7 @@ angular
         $rootScope.isOpen = false;
         $rootScope.isColOpen = false;
         $rootScope.passed = false;
+        $scope.clear_filter = true;
 
         function debounce(func, wait, context) {
             var timer;
@@ -107,16 +101,13 @@ angular
         $scope.setImgWidth = function(window_width) {
             var real_width = 0;
             if (window_width > 959) {
-                real_width = window_width - 400;
+                real_width = window_width - 417;
             } else {
                 real_width = window_width;
             }
             var cnt_img = parseInt(real_width / 120);
             var img_width = 120 + (real_width % 120) / cnt_img;
-            $(".item").css('width', img_width);
-            $(".item").css('height', img_width);
-            $(".item_hide").css('width', img_width);
-            $(".item_hide").css('height', img_width);
+            return img_width;
         }
 
         function buildToggler(componentId) {
@@ -134,6 +125,7 @@ angular
         }
 
         $scope.close = function() {
+            $window.scrollTo(0, 0);
             $mdSidenav('left').close();
         }
 
@@ -159,6 +151,7 @@ angular
                 filter_state += $scope.filter_option[index].state;
             }
             if (filter_state) {
+                $scope.clear_filter = false;
                 $scope.filterItems();
             } else {
                 $scope.clearFilter();
@@ -192,7 +185,42 @@ angular
                 filter_state += $scope.filter_option[index].state;
             }
             if (filter_state) {
+                $scope.clear_filter = false;
                 $scope.filterItems();
+            } else {
+                $scope.clearFilter();
+            }
+        }
+
+        $scope.selectCurMoodItem = function(id) {
+            var parent_id = 0;
+            var parent_state = 1;
+            for (let index = 0; index < $scope.filter_option.length; index++) {
+                if ($scope.filter_option[index].id == id) {
+                    if ($scope.filter_option[index].state == 1) {
+                        $scope.filter_option[index].state = 0;
+                    } else {
+                        $scope.filter_option[index].state = 1;
+                    }
+                    parent_state = parent_state * $scope.filter_option[index].state;
+                    parent_id = $scope.filter_option[index].parent;
+                    for (let idx = 0; idx < $scope.filter_option.length; idx++) {
+                        if ($scope.filter_option[idx].parent == parent_id) {
+                            parent_state = parent_state * $scope.filter_option[idx].state;
+                        }
+                    }
+                }
+            }
+            var filter_state = 0;
+            for (let index = 0; index < $scope.filter_option.length; index++) {
+                if ($scope.filter_option[index].id == parent_id) {
+                    $scope.filter_option[index].state = parent_state;
+                }
+                filter_state += $scope.filter_option[index].state;
+            }
+            if (filter_state) {
+                $scope.clear_filter = false;
+                $scope.filterMoodItems();
             } else {
                 $scope.clearFilter();
             }
@@ -211,14 +239,14 @@ angular
             for (let index = 0; index < $scope.filter_option.length; index++) {
                 $scope.filter_option[index].state = 0;
             }
-            $scope.displayItem = Array();
-            for (let index = 0; index < $scope.products.length; index++) {
-                $scope.displayItem.push($scope.products[index]);
-            }
+            $scope.clear_filter = true;
+            // $scope.displayItem = Array();
+            // for (let index = 0; index < $scope.products.length; index++) {
+            //     $scope.displayItem.push($scope.products[index]);
+            // }
         }
 
         $scope.filterItems = function() {
-
             $scope.displayItem = Array();
             for (let index = 0; index < $scope.products.length; index++) {
                 var valid_flag = Array();
@@ -232,7 +260,6 @@ angular
                         }
                     }
                 }
-
                 var tmp_cate = $scope.products[index].category.split(',');
                 for (var i = 0; i < tmp_cate.length; i++) {
                     for (var j = 0; j < $scope.filter_option.length; j++) {
@@ -251,7 +278,62 @@ angular
                 for (let n = 0; n < valid_flag.length; n++) {
                     _valid_show = _valid_show * valid_flag[n].valid_show;
                 }
+
                 if (_valid_show == 1 || _valid_show == -1) {
+                    $scope.displayItem.push($scope.products[index]);
+                }
+            }
+        }
+
+        $scope.filterMoodItems = function() {
+            $scope.displayItem = Array();
+            for (let index = 0; index < $scope.products.length; index++) {
+                var valid_flag = Array();
+                var state_cnt = 0;
+                var mood_cnt = 0;
+                for (var k = 0; k < $scope.filter_option.length; k++) {
+                    if ($scope.filter_option[k].state == 1) {
+                        state_cnt++;
+                        var temp_cate = $scope.products[index].category.split(',');
+                        for (var m = 0; m < temp_cate.length; m++) {
+                            if (temp_cate[m].trim() == $scope.filter_option[k].id) {
+                                if ($scope.filter_option[k].parent == "29") {
+                                    mood_cnt++;
+                                }
+                            }
+                        }
+                    }
+                }
+                for (let n = 0; n < $scope.filters.length; n++) {
+                    valid_flag.push({ id: $scope.filters[n].id, valid_show: -1 });
+                }
+                for (var j = 0; j < $scope.filter_option.length; j++) {
+                    for (let n = 0; n < valid_flag.length; n++) {
+                        if (($scope.filter_option[j].state == 1) && ($scope.filter_option[j].parent == valid_flag[n].id) && (valid_flag[n].valid_show == -1)) {
+                            valid_flag[n].valid_show = 0;
+                        }
+                    }
+                }
+                var tmp_cate = $scope.products[index].category.split(',');
+                for (var i = 0; i < tmp_cate.length; i++) {
+                    for (var j = 0; j < $scope.filter_option.length; j++) {
+                        if (tmp_cate[i].trim() == $scope.filter_option[j].id) {
+                            if ($scope.filter_option[j].state == 1) {
+                                for (let n = 0; n < valid_flag.length; n++) {
+                                    if ($scope.filter_option[j].parent == valid_flag[n].id) {
+                                        valid_flag[n].valid_show = 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                var _valid_show = 1;
+                for (let n = 0; n < valid_flag.length; n++) {
+                    _valid_show = _valid_show * valid_flag[n].valid_show;
+                }
+
+                if (mood_cnt >= state_cnt && _valid_show == 1 || _valid_show == -1) {
                     $scope.displayItem.push($scope.products[index]);
                 }
             }
@@ -371,12 +453,8 @@ angular
         $scope.curProduct = [];
         $scope.itemImages = [];
 
-        $scope.backToList = function() {
-            $scope.showItem = false;
-        }
-
         $scope.gotoMain = function() {
-            $scope.backToList();
+            $window.scrollTo(0, 0);
             $rootScope.isOpen = false;
             $rootScope.isColOpen = false;
             $mdSidenav('left').close();
@@ -387,79 +465,133 @@ angular
                 var limit_height = $(document).height();
                 var limit_width = $(document).width();
                 var hide_elem_list = document.getElementsByClassName('item_hide');
-                $('.item').live('mouseover mouseout', function(event) {
+                $('.item').live('mouseover', function(event) {
                     var item_index = $('.item').index(this);
                     var hide_elem = hide_elem_list[item_index];
-                    if (!hide_elem) {
-                        $timeout(function() {
-                            $scope.setImgWidth($window.innerWidth);
-                        }, 0.01);
+                    if ($scope.showitem) {
+                        $scope.showitem.classList.remove('zoom');
+                        $scope.showitem.classList.remove('display-none');
+                        $scope.showitem.classList.add('display-none');
                     }
+                    $scope.showitem = hide_elem;
                     var offset = $(this).offset();
                     var top = offset.top - $(window).scrollTop();
                     var left = offset.left;
-                    if (event.type == 'mouseover') {
-                        $scope.setImgWidth($window.innerWidth);
-                        hide_elem.classList.remove('display-none');
-                        var off_top = top - 44;
-                        if (off_top <= 0) {
-                            off_top = 15;
-                        }
-                        if (off_top >= limit_height) {
-                            off_top = limit_height - 15;
-                        }
-                        var off_left = left - 44;
-                        if (off_left <= 0) {
-                            off_left = 15;
-                        }
-                        if (off_left >= limit_width) {
-                            off_left = limit_width - 15;
-                        }
-                        var real_width = 0;
-                        if ($window.innerWidth > 959) {
-                            real_width = $window.innerWidth - 400;
-                        } else {
-                            real_width = $window.innerWidth;
-                        }
-                        var cnt_img = parseInt(real_width / 120);
-                        if (!((item_index + 1) % cnt_img)) {
+                    hide_elem.classList.remove('display-none');
+                    var off_top = top - 44;
+                    if (off_top <= 0) {
+                        off_top = 15;
+                    }
+                    if (off_top >= limit_height) {
+                        off_top = limit_height - 15;
+                    }
+                    var off_left = left - 44;
+                    if (off_left <= 0) {
+                        off_left = 15;
+                    }
+                    if (off_left >= limit_width) {
+                        off_left = limit_width - 15;
+                    }
+                    var real_width = 0;
+                    if ($window.innerWidth > 959) {
+                        real_width = $window.innerWidth - 417;
+                    } else {
+                        real_width = $window.innerWidth;
+                    }
+
+                    var cnt_img = parseInt(real_width / 120);
+                    if (cnt_img == 10) {
+                        if ((item_index % cnt_img) == 6) {
                             hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
                         } else {
                             hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
                         }
-                        hide_elem.classList.add('zoom');
-                        for (let index = 0; index < hide_elem_list.length; index++) {
-                            if (index != item_index) {
-                                hide_elem_list[index].classList.remove('zoom');
-                                hide_elem_list[index].classList.remove('display-none');
-                                hide_elem_list[index].classList.add('display-none');
-                                // document.getElementsByClassName('item')[index].removeAttribute("style");
-                                // $timeout(function() {
-                                //     $scope.setImgWidth($window.innerWidth);
-                                // }, 0.01);
-                            }
+                    } else if (cnt_img == 5) {
+                        if ((item_index * 2 % 10) == 2) {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                        } else {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                        }
+                    } else if (cnt_img == 7) {
+                        if (!(item_index % cnt_img)) {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                        } else {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                        }
+                    } else if (cnt_img == 9) {
+                        if ((item_index % cnt_img) == 5) {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                        } else {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                        }
+                    } else {
+                        if ((item_index % cnt_img) == 2) {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                        } else {
+                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
                         }
                     }
-                    // if (event.type == 'mouseout') {
-                    //     for (let index = 0; index < hide_elem_list.length; index++) {
-                    //         if (index != item_index) {
-                    //             hide_elem_list[index].classList.remove('zoom');
-                    //             hide_elem_list[index].classList.remove('display-none');
-                    //             hide_elem_list[index].classList.add('display-none');
-                    //             document.getElementsByClassName('item')[index].removeAttribute("style");
-                    //         }
-                    //     }
-                    // }
 
+
+                    $(window).resize(function() {
+                        var real_width = 0;
+                        if (this.innerWidth > 959) {
+                            real_width = this.innerWidth - 417;
+                        } else {
+                            real_width = this.innerWidth;
+                        }
+
+                        var cnt_img = parseInt(real_width / 120);
+                        if (cnt_img == 10) {
+                            if ((item_index % cnt_img) == 6) {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                            } else {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                            }
+                        } else if (cnt_img == 5) {
+                            if ((item_index * 2 % 10) == 2) {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                            } else {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                            }
+                        } else if (cnt_img == 7) {
+                            if (!(item_index % cnt_img)) {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                            } else {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                            }
+                        } else if (cnt_img == 9) {
+                            if ((item_index % cnt_img) == 5) {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                            } else {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                            }
+                        } else {
+                            if ((item_index % cnt_img) == 2) {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
+                            } else {
+                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
+                            }
+                        }
+                    });
+
+                    hide_elem.classList.add('zoom');
+                    /*for (let index = 0; index < hide_elem_list.length; index++) {
+                        if (index != item_index) {
+                            hide_elem_list[index].classList.remove('zoom');
+                            hide_elem_list[index].classList.remove('display-none');
+                            hide_elem_list[index].classList.add('display-none');
+                        }
+                    }*/
                 });
 
                 $(".item_hide").live('mouseout', function(event) {
+
                     var item_index = $('.item_hide').index(this);
                     var hide_elem = hide_elem_list[item_index];
                     hide_elem.classList.remove('zoom');
                     hide_elem.classList.remove('display-none');
                     hide_elem.classList.add('display-none');
-                    hide_elem.removeAttribute("style");
                 });
 
                 $(window).scroll(function() {
@@ -494,7 +626,36 @@ angular
 
         $timeout(function() {
             localStorage.removeItem('passed');
-        }, 3600000)
+        }, 3600000);
+
+        $scope.scrollTopAbout = function() {
+            $window.scrollTo(0, 0);
+        }
+
+        $scope.imgWidth = $scope.setImgWidth($window.innerWidth);
+
+        $(window).resize(function() {
+            $scope.imgWidth = $scope.setImgWidth($window.innerWidth);
+            $(".item").css("width", $scope.imgWidth);
+            $(".item").css("height", $scope.imgWidth);
+        });
+
+        $scope.allColImages;
+        $timeout(function() {
+            var api_url = "api/getAllColImages.php";
+
+            var fd = new FormData();
+            fd.append('action', 'get');
+            $http.get(api_url, fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).success(function(data) {
+                $scope.allColImages = data;
+            }).error(function(err) {
+                console.log(err);
+            });
+        }, 100);
+
     })
     .controller('HomeCtrl', function($scope, $rootScope, $window, $mdSidenav, $timeout) {
         $rootScope.isOpen = false;
@@ -511,70 +672,41 @@ angular
             $(".loader-section.section-right").css("transform", "translateX(100%)");
             $(".loader-section.section-right").css("-webkit-transition", "all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000)");
             $(".loader-section.section-right").css("transition", "all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000)");
-            // $("#loader-wrapper").css("visibility", "hidden");
-            // $("#loader-wrapper").css("-webkit-transform", "translateY(-100%)");
-            // $("#loader-wrapper").css("-ms-transform", "translateY(-100%)");
-            // $("#loader-wrapper").css("transform", "translateY(-100%)");
-            // $("#loader-wrapper").css("-webkit-transition", "all 0.3s 1s ease-out");
-            // $("#loader-wrapper").css("transition", "all 0.3s 1s ease-out");
 
             $timeout(function() {
                 $window.location.href = "/main";
             }, 1000);
         }
     })
-    .controller('MainCtrl', function($scope, $rootScope, $mdSidenav, $window, $timeout) {
+    .controller('MainCtrl', function($scope, $rootScope, $mdSidenav, $window, $timeout, $location) {
         $rootScope.isOpen = false;
         $rootScope.isColOpen = false;
         $mdSidenav('left').close();
-        $scope.passed = false;
-        $("md-toolbar").hide();
+        $rootScope.passed = false;
         const password = "password1";
         $scope.unlockScreen = function(form) {
             if ($scope.password == password) {
                 localStorage.setItem('passed', true);
-                $scope.passed = localStorage.getItem('passed');
+                $rootScope.passed = localStorage.getItem('passed');
                 $("#loader-wrapper").hide();
                 if ($window.innerWidth < 960) {
-                    $("md-toolbar").show();
+                    $window.scrollTo(0, 0);
                 }
-                location.reload();
             } else {
                 alert("Password does not match.");
             }
         }
 
-        $scope.passed = localStorage.getItem('passed');
+        $rootScope.passed = localStorage.getItem('passed');
 
-        if ($scope.passed) {
-            if ($window.innerWidth < 960) {
-                $("md-toolbar").show();
-            }
+        $scope.scrollToTop = function() {
+            $window.scrollTo(0, 0);
         }
-
-        $scope.setImgWidth = function(window_width) {
-            var real_width = 0;
-            if (window_width > 959) {
-                real_width = window_width - 400;
-            } else {
-                real_width = window_width;
-            }
-            var cnt_img = parseInt(real_width / 120);
-            var img_width = 120 + (real_width % 120) / cnt_img;
-            $(".item").css('width', img_width);
-            $(".item").css('height', img_width);
-        }
-        $timeout(function() {
-            $scope.setImgWidth($window.innerWidth);
-        }, 1000);
-
-        $(window).resize(function() {
-            $scope.setImgWidth($window.innerWidth);
-        });
-
     })
-    .controller('ProductCtrl', function($scope, $rootScope, $http, $mdSidenav, productId) {
+    .controller('ProductCtrl', function($scope, $rootScope, $http, $window, $mdSidenav, productId) {
         $rootScope.isColOpen = false;
+        $rootScope.passed = true;
+        $window.scrollTo(0, 0);
         $mdSidenav('left').close();
         var api_url = "api/getProductDetail.php";
         var fd = new FormData();
@@ -587,13 +719,13 @@ angular
             if ($scope.curProduct['image'] != "undefined") {
                 $scope.itemImages = $scope.curProduct['image'].split(',');
             }
-            console.log($scope.curProduct);
         }).error(function(err) {
             console.log(err);
         });
     })
-    .controller('CollectionCtrl', function($scope, $rootScope, $http, $mdSidenav, colNum) {
+    .controller('CollectionCtrl', function($scope, $rootScope, $http, $mdSidenav, $timeout, colNum) {
         $rootScope.isOpen = false;
+        $rootScope.passed = true;
         $mdSidenav('left').close();
         $scope.collection = { imagePaths: [], description: '' };
 
@@ -611,28 +743,23 @@ angular
             console.log(err);
         });
 
-        setTimeout(function() {
-            var container_width = $("#container").width();
+        $timeout(function() {
             $('#carousel').css('padding-left', 0);
             $('#carousel').css('padding-right', 0);
             $('#carousel').css('left', '0px');
             $('#carousel').resize();
-            var sumImagesWidth = 0;
-            $('#carousel img').each(function(i, obj) {
-                sumImagesWidth = sumImagesWidth + $(obj).width();
-            });
-            if (sumImagesWidth < container_width) {
-                $('#carousel').css('padding-left', ((container_width - sumImagesWidth) / 2) - 15);
-            }
-        }, 500);
+        }, 900);
+
     })
     .controller('AboutCtrl', function($rootScope, $mdSidenav) {
         $rootScope.isOpen = false;
         $rootScope.isColOpen = false;
+        $rootScope.passed = true;
         $mdSidenav('left').close();
     })
     .controller('ContactCtrl', function($rootScope, $mdSidenav) {
         $rootScope.isOpen = false;
         $rootScope.isColOpen = false;
+        $rootScope.passed = true;
         $mdSidenav('left').close();
     });

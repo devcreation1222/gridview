@@ -590,13 +590,12 @@
 
                     var countImages = 0;
                     var sumImagesWidth = 0;
-
+                    var container_width = $("#container").width();
                     // walk over images in slider, count the images and calc the median of those pics
                     $('#carousel img').each(function(i, obj) {
                         sumImagesWidth = sumImagesWidth + $(obj).width();
                         countImages++;
                     });
-
                     carousel = true;
 
                     if (!carousel) slider.doMath();
@@ -630,6 +629,9 @@
 
                     // set the <li>-tags around the pics to auto width
                     $("#carousel li").css("width", "auto");
+                    if (sumImagesWidth < container_width) {
+                        $('#carousel').css('padding-left', ((container_width - sumImagesWidth) / 2) - 15);
+                    }
                 }
 
             },

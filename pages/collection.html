@@ -1,6 +1,7 @@
-<div id="container">
-    <div style="margin: auto; text-align: center">
-        <div>
+<div class="row gridview">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 col-sm-12" id="container" style="margin: auto; text-align: center">
+        <div style="height: 100vh">
             <div>
                 <div class="col-md-12 col-sm-12">
 
@@ -32,14 +33,20 @@
             </div>
         </div>
     </div>
+    <div class="col-md-1"></div>
 </div>
 <style>
+    .gridview {
+        margin-top: 60px;
+    }
+    
     #container {
-        width: 800px;
+        min-height: 100%;
+        /*width: 800px;
         position: relative;
         left: 50%;
         transform: translateX(-50%);
-        -webkit-transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);*/
         margin-top: 60px;
     }
     
@@ -86,11 +93,17 @@
         white-space: pre-line;
     }
     
+    .flex-direction-nav a {
+        height: 50px;
+    }
+    
     @media(max-width: 995px) {
-        #container {
-            width: 750px;
+        .gridview {
             margin-top: 70px;
             margin-left: 0px;
+        }
+        #container {
+            width: 750px;
         }
         #slider {
             max-width: 100%;
@@ -107,6 +120,11 @@
     }
     
     @media (max-width: 600px) {
+        .gridview {
+            margin-top: 120px;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
         #container {
             width: 380px;
             margin-top: 120px;
@@ -116,9 +134,11 @@
             height: 250px;
             width: auto;
         }
+        /*
         #slider .flex-direction-nav {
             display: none !important;
         }
+        */
         #slider {
             width: 100%;
         }

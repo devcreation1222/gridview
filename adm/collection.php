@@ -34,7 +34,9 @@ while($row = mysqli_fetch_array($p_result)) {
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <title>Admin Panel</title>
     <!-- Bootstrap Core CSS -->
-    <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="icons/font-awesome/css/font-awesome.min.css">
+    <!-- <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <!-- Custom CSS -->
 
     <link href="css/lib/calendar2/semantic.ui.min.css" rel="stylesheet">
@@ -84,6 +86,7 @@ while($row = mysqli_fetch_array($p_result)) {
                     <div class="col-12">
                         <div class="card" style="min-height: 70vh;">
                             <div class="card-body">
+                                <button type="button" id="generate-thumbnails" class="btn btn-middle btn-primary" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Processing Images">Speed Up</button>
                                 <div class="table-responsive m-t-40">
                                     <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
@@ -174,6 +177,15 @@ while($row = mysqli_fetch_array($p_result)) {
                 console.log('no');
             }
         }
+
+        $("#generate-thumbnails").click(function(){
+            $(this).button('loading');
+            $.when($.ajax("../api/downloadColImages.php"), $.ajax("../api/generateColThumbs.php")).done(function() {
+                alert("Successfully speed up.");
+                $("#generate-thumbnails").button('reset');
+            });
+        });
+        
     </script>
 
 </body>

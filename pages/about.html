@@ -4,7 +4,7 @@
         <div class="col-md-6 col-xs-12 content" style="padding-bottom: 100px;">
             <div class="outer">
                 <div class="middle">
-                    <img src="./chair-man-2.png" class="img-responsive display-none" style="float: right;" />
+                    <img src="../pages/chair-man-3.png" class="img-responsive display-none" style="float: right;" />
                     <p>Artifact New York is a rental service that caters to designer fashion connoisseurs, entertainers, celebrities, actors/actresses, models, and designers. Combining selectively curated collections, Artifact New York is a unique addition
                         to the current fashion landscape. Artifact New York represents the tastes of individuals who commonly share the passion of clothing and the story they tell. Our goal is to provide people access to historically important garments
                         and to further discussion surrounding culturally relevant designers.</p>
@@ -16,7 +16,7 @@
         <div class="col-md-4 content" style="text-align: right">
             <div class="outer">
                 <div class="middle">
-                    <img src="./chair-man-2.png" class="img-responsive display-block" />
+                    <img src="chair-man-2.png" class="img-responsive display-block" />
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
 
 <style>
     .main-content {
-        height: 100%;
+        min-height: 100%;
         background-image: linear-gradient( rgba(196, 196, 196, 0.45), rgba(196, 196, 196, 0.45));
         background-repeat: no-repeat;
         background-position: right center;
@@ -69,20 +69,21 @@
         word-wrap: break-word;
     }
     
-    @media(max-width: 600px) {
+    @media(max-width: 959px) {
+        .main-content {
+            padding: 0 20px 40px 20px;
+        }
         .content .outer {
-            position: relative;
-            height: 100vh;
+            position: unset;
+            height: unset;
         }
         .content .middle {
-            max-height: 100vh;
-            position: relative;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-        }
-        .main-content {
-            padding: 0px 20px;
+            max-height: unset;
+            margin-top: 100px;
+            position: unset;
+            top: unset;
+            -webkit-transform: unset;
+            transform: unset;
         }
         .display-block {
             display: none;

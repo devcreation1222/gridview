@@ -29,6 +29,10 @@ body {
     padding: 0;
 }
 
+body {
+    max-height: 100%;
+}
+
 h1,
 h2,
 h3,
@@ -72,8 +76,8 @@ p {
     background: #ff8a80;
 }
 
-#main-container {
-    min-height: 100vh;
+md-sidenav {
+    height: 100vh;
 }
 
 md-sidenav-container,
@@ -87,8 +91,10 @@ md-sidenav,
     text-transform: uppercase !important;
 }
 
-md-sidenav>md-content {
-    height: 100vh;
+md-sidenav>header>md-toolbar.md-default-theme:not(.md-menu-toolbar),
+md-sidenav>header>md-toolbar:not(.md-menu-toolbar) {
+    background: lightgray;
+    color: #242628;
 }
 
 md-list-item .md-no-style.md-button,
@@ -99,6 +105,20 @@ md-list-item.md-no-proxy.md-button {
 
 .md-button {
     margin: 0px !important;
+}
+
+md-list-item .md-toggle-icon {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    transition: -webkit-transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+
+md-list-item .md-toggle-icon.toggled {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
 }
 
 md-list-item .md-no-style.md-button:hover,
@@ -116,6 +136,10 @@ ul.menu-toggle-list.toggle-active>li.active {
     color: #ff3c00 !important;
 }
 
+md-sidenav>md-content {
+    margin-top: 100px;
+}
+
 md-sidenav ul li {
     padding: 10px 0;
     padding-left: 10px;
@@ -131,7 +155,7 @@ md-sidenav ul li:focus {
     color: #ff3c00;
 }
 
-md-sidenav>md-content .md-icon-button {
+md-sidenav>header .md-icon-button {
     position: absolute;
     right: 0px;
     display: none;
@@ -408,14 +432,7 @@ md-sidenav {
         padding-right: 10px;
     }
     .item-area {
-        padding-top: 56px;
-    }
-    md-sidenav>md-content {
-        height: 100%;
-    }
-    .md-sidenav-left,
-    md-sidenav {
-        position: fixed;
+        padding-top: 48px;
     }
     md-sidenav>md-content .md-icon-button {
         display: block;
@@ -435,6 +452,9 @@ md-sidenav {
 }
 
 @media (max-width: 600px) {
+    .item-area {
+        padding-top: 56px;
+    }
     .detail-desktop {
         display: none;
     }
@@ -466,13 +486,9 @@ md-sidenav {
     margin: 20px 0;
 }
 
-md-backdrop.md-sidenav-backdrop {
-    z-index: 998;
-    position: fixed;
-}
-
 ::-webkit-scrollbar {
     width: 0px;
+    height: 0px;
 }
 
 ::-webkit-scrollbar-track {

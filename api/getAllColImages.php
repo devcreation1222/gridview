@@ -2,10 +2,8 @@
 header('Access-Control-Allow-Origin: *');
 include('../adm/db.php');
 
-$col_num = $_GET['col_num'];
-$sql = "SELECT * FROM collection WHERE col_num=".$col_num;
+$sql = "SELECT * FROM collection";
 $sql_result = mysqli_query($link, $sql);
-$col_data = [];
 $image_paths = [];
 if ($sql_result) {
     while($row = mysqli_fetch_array($sql_result)) {
@@ -16,20 +14,13 @@ if ($sql_result) {
                 $image_paths[] = array(
                     'custom' => $img,
                     'thumbnail' => $img
-                    //'thumbnail' => './api/thumbnails/collection/'.$col_num.'/'.pathinfo($img, PATHINFO_BASENAME),
                 );
             }
-        }
-        if ($image_paths) {
-            $col_data[] = array(
-                'imagePaths'=> $image_paths,
-                'description'=> urldecode($row['col_description'])
-            );
         }
     }
 }
 
-echo json_encode($col_data);
+echo json_encode($image_paths);
 
 mysqli_close($link);
 ?>
