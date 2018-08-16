@@ -76,8 +76,8 @@ p {
     background: #ff8a80;
 }
 
-md-sidenav {
-    height: 100vh;
+#main-container {
+    min-height: 100vh;
 }
 
 md-sidenav-container,
@@ -105,20 +105,6 @@ md-list-item.md-no-proxy.md-button {
 
 .md-button {
     margin: 0px !important;
-}
-
-md-list-item .md-toggle-icon {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
-    -webkit-transition: -webkit-transform 0.3s ease-in-out;
-    transition: -webkit-transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
-}
-
-md-list-item .md-toggle-icon.toggled {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
 }
 
 md-list-item .md-no-style.md-button:hover,
@@ -167,6 +153,20 @@ md-list-item>.md-list-item-inner>p,
 md-list-item>p {
     font-weight: 400;
     letter-spacing: 3px;
+}
+
+md-list-item .md-toggle-icon {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    transition: -webkit-transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+
+md-list-item .md-toggle-icon.toggled {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
 }
 
 .main-title {
@@ -427,12 +427,19 @@ md-sidenav {
 }
 
 @media (max-width: 959px) {
+    .main-div {
+        max-height: 100%;
+    }
     .p-detail {
         left: 50%;
         padding-right: 10px;
     }
     .item-area {
         padding-top: 48px;
+    }
+    .md-sidenav-left,
+    md-sidenav {
+        position: fixed;
     }
     md-sidenav>md-content .md-icon-button {
         display: block;
@@ -488,17 +495,64 @@ md-sidenav {
 
 ::-webkit-scrollbar {
     width: 0px;
-    height: 0px;
 }
 
 ::-webkit-scrollbar-track {
-    background: white;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: white;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: white;
+    background: transparent;
+}
+
+.scrolltop {
+    display: none;
+    width: 100%;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+}
+
+.scroll {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    background: lightgray;
+    background: rgba(178, 178, 178, 0.7);
+    padding: 10px;
+    text-align: center;
+    margin: 0 0 0 0;
+    cursor: pointer;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    border-radius: 2px;
+}
+
+.scroll:hover {
+    background: rgba(178, 178, 178, 1.0);
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
+.scroll:hover .fa {
+    padding-top: -10px;
+}
+
+.scroll .fa {
+    font-size: 30px;
+    margin-top: -5px;
+    margin-left: 1px;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
 }

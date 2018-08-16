@@ -101,7 +101,7 @@ angular
         $scope.setImgWidth = function(window_width) {
             var real_width = 0;
             if (window_width > 959) {
-                real_width = window_width - 417;
+                real_width = window_width - 400;
             } else {
                 real_width = window_width;
             }
@@ -186,41 +186,7 @@ angular
             }
             if (filter_state) {
                 $scope.clear_filter = false;
-                $scope.filterItems();
-            } else {
-                $scope.clearFilter();
-            }
-        }
-
-        $scope.selectCurMoodItem = function(id) {
-            var parent_id = 0;
-            var parent_state = 1;
-            for (let index = 0; index < $scope.filter_option.length; index++) {
-                if ($scope.filter_option[index].id == id) {
-                    if ($scope.filter_option[index].state == 1) {
-                        $scope.filter_option[index].state = 0;
-                    } else {
-                        $scope.filter_option[index].state = 1;
-                    }
-                    parent_state = parent_state * $scope.filter_option[index].state;
-                    parent_id = $scope.filter_option[index].parent;
-                    for (let idx = 0; idx < $scope.filter_option.length; idx++) {
-                        if ($scope.filter_option[idx].parent == parent_id) {
-                            parent_state = parent_state * $scope.filter_option[idx].state;
-                        }
-                    }
-                }
-            }
-            var filter_state = 0;
-            for (let index = 0; index < $scope.filter_option.length; index++) {
-                if ($scope.filter_option[index].id == parent_id) {
-                    $scope.filter_option[index].state = parent_state;
-                }
-                filter_state += $scope.filter_option[index].state;
-            }
-            if (filter_state) {
-                $scope.clear_filter = false;
-                $scope.filterMoodItems();
+                $scope.filterItems(id);
             } else {
                 $scope.clearFilter();
             }
@@ -239,6 +205,7 @@ angular
             for (let index = 0; index < $scope.filter_option.length; index++) {
                 $scope.filter_option[index].state = 0;
             }
+            $window.scrollTo(0, 0);
             $scope.clear_filter = true;
             // $scope.displayItem = Array();
             // for (let index = 0; index < $scope.products.length; index++) {
@@ -246,59 +213,22 @@ angular
             // }
         }
 
-        $scope.filterItems = function() {
+        $scope.filterItems = function(id) {
             $scope.displayItem = Array();
             for (let index = 0; index < $scope.products.length; index++) {
                 var valid_flag = Array();
-                for (let n = 0; n < $scope.filters.length; n++) {
-                    valid_flag.push({ id: $scope.filters[n].id, valid_show: -1 });
-                }
-                for (var j = 0; j < $scope.filter_option.length; j++) {
-                    for (let n = 0; n < valid_flag.length; n++) {
-                        if (($scope.filter_option[j].state == 1) && ($scope.filter_option[j].parent == valid_flag[n].id) && (valid_flag[n].valid_show == -1)) {
-                            valid_flag[n].valid_show = 0;
-                        }
-                    }
-                }
-                var tmp_cate = $scope.products[index].category.split(',');
-                for (var i = 0; i < tmp_cate.length; i++) {
-                    for (var j = 0; j < $scope.filter_option.length; j++) {
-                        if (tmp_cate[i].trim() == $scope.filter_option[j].id) {
-                            if ($scope.filter_option[j].state == 1) {
-                                for (let n = 0; n < valid_flag.length; n++) {
-                                    if ($scope.filter_option[j].parent == valid_flag[n].id) {
-                                        valid_flag[n].valid_show = 1;
+                if (id > 29) {
+                    var state_cnt = 0;
+                    var mood_cnt = 0;
+                    for (var k = 0; k < $scope.filter_option.length; k++) {
+                        if ($scope.filter_option[k].state == 1 && parseInt($scope.filter_option[k].id) > 29) {
+                            state_cnt++;
+                            var temp_cate = $scope.products[index].category.split(',');
+                            for (var m = 0; m < temp_cate.length; m++) {
+                                if (temp_cate[m].trim() == $scope.filter_option[k].id) {
+                                    if ($scope.filter_option[k].parent == "29") {
+                                        mood_cnt++;
                                     }
-                                }
-                            }
-                        }
-                    }
-                }
-                var _valid_show = 1;
-                for (let n = 0; n < valid_flag.length; n++) {
-                    _valid_show = _valid_show * valid_flag[n].valid_show;
-                }
-
-                if (_valid_show == 1 || _valid_show == -1) {
-                    $scope.displayItem.push($scope.products[index]);
-                }
-            }
-        }
-
-        $scope.filterMoodItems = function() {
-            $scope.displayItem = Array();
-            for (let index = 0; index < $scope.products.length; index++) {
-                var valid_flag = Array();
-                var state_cnt = 0;
-                var mood_cnt = 0;
-                for (var k = 0; k < $scope.filter_option.length; k++) {
-                    if ($scope.filter_option[k].state == 1) {
-                        state_cnt++;
-                        var temp_cate = $scope.products[index].category.split(',');
-                        for (var m = 0; m < temp_cate.length; m++) {
-                            if (temp_cate[m].trim() == $scope.filter_option[k].id) {
-                                if ($scope.filter_option[k].parent == "29") {
-                                    mood_cnt++;
                                 }
                             }
                         }
@@ -332,10 +262,16 @@ angular
                 for (let n = 0; n < valid_flag.length; n++) {
                     _valid_show = _valid_show * valid_flag[n].valid_show;
                 }
-
-                if (mood_cnt >= state_cnt && _valid_show == 1 || _valid_show == -1) {
-                    $scope.displayItem.push($scope.products[index]);
+                if (id > 29) {
+                    if (mood_cnt >= state_cnt && _valid_show == 1 || _valid_show == -1) {
+                        $scope.displayItem.push($scope.products[index]);
+                    }
+                } else {
+                    if (_valid_show == 1 || _valid_show == -1) {
+                        $scope.displayItem.push($scope.products[index]);
+                    }
                 }
+
             }
         }
 
@@ -489,100 +425,14 @@ angular
                     if (off_left <= 0) {
                         off_left = 15;
                     }
-                    if (off_left >= limit_width) {
-                        off_left = limit_width - 15;
-                    }
-                    var real_width = 0;
-                    if ($window.innerWidth > 959) {
-                        real_width = $window.innerWidth - 417;
+
+                    if (off_left >= limit_width - 200) {
+                        hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: 15px; z-index: 9999;');
                     } else {
-                        real_width = $window.innerWidth;
+                        hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
                     }
-
-                    var cnt_img = parseInt(real_width / 120);
-                    if (cnt_img == 10) {
-                        if ((item_index % cnt_img) == 6) {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                        } else {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                        }
-                    } else if (cnt_img == 5) {
-                        if ((item_index * 2 % 10) == 2) {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                        } else {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                        }
-                    } else if (cnt_img == 7) {
-                        if (!(item_index % cnt_img)) {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                        } else {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                        }
-                    } else if (cnt_img == 9) {
-                        if ((item_index % cnt_img) == 5) {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                        } else {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                        }
-                    } else {
-                        if ((item_index % cnt_img) == 2) {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                        } else {
-                            hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                        }
-                    }
-
-
-                    $(window).resize(function() {
-                        var real_width = 0;
-                        if (this.innerWidth > 959) {
-                            real_width = this.innerWidth - 417;
-                        } else {
-                            real_width = this.innerWidth;
-                        }
-
-                        var cnt_img = parseInt(real_width / 120);
-                        if (cnt_img == 10) {
-                            if ((item_index % cnt_img) == 6) {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                            } else {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                            }
-                        } else if (cnt_img == 5) {
-                            if ((item_index * 2 % 10) == 2) {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                            } else {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                            }
-                        } else if (cnt_img == 7) {
-                            if (!(item_index % cnt_img)) {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                            } else {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                            }
-                        } else if (cnt_img == 9) {
-                            if ((item_index % cnt_img) == 5) {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                            } else {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                            }
-                        } else {
-                            if ((item_index % cnt_img) == 2) {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; right: ' + 15 + 'px; z-index: 9999;');
-                            } else {
-                                hide_elem.setAttribute('style', 'position: fixed; top: ' + off_top + 'px; left: ' + off_left + 'px; z-index: 9999;');
-                            }
-                        }
-                    });
 
                     hide_elem.classList.add('zoom');
-                    /*for (let index = 0; index < hide_elem_list.length; index++) {
-                        if (index != item_index) {
-                            hide_elem_list[index].classList.remove('zoom');
-                            hide_elem_list[index].classList.remove('display-none');
-                            hide_elem_list[index].classList.add('display-none');
-                        }
-                    }*/
                 });
 
                 $(".item_hide").live('mouseout', function(event) {
@@ -601,8 +451,20 @@ angular
                             this.classList.remove('display-none');
                             this.classList.add('display-none');
                         }
+                    });
+                    if ($(this).scrollTop() > 50) {
+                        $('.scrolltop:hidden').stop(true, true).fadeIn();
+                    } else {
+                        $('.scrolltop').stop(true, true).fadeOut();
+                    }
+                });
+                $(function() {
+                    $('.scroll').click(function() {
+                        $('html,body').animate({ scrollTop: $(".thetop").offset().top }, '1000');
+                        return false;
                     })
                 });
+
             });
 
         }
@@ -627,10 +489,6 @@ angular
         $timeout(function() {
             localStorage.removeItem('passed');
         }, 3600000);
-
-        $scope.scrollTopAbout = function() {
-            $window.scrollTo(0, 0);
-        }
 
         $scope.imgWidth = $scope.setImgWidth($window.innerWidth);
 
@@ -706,8 +564,8 @@ angular
     .controller('ProductCtrl', function($scope, $rootScope, $http, $window, $mdSidenav, productId) {
         $rootScope.isColOpen = false;
         $rootScope.passed = true;
-        $window.scrollTo(0, 0);
         $mdSidenav('left').close();
+        $window.scrollTo(0, 0);
         var api_url = "api/getProductDetail.php";
         var fd = new FormData();
         fd.append('id', productId);
